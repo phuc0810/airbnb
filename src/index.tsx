@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 // setup antd
 import { store } from "./redux/store";
 
+// eslint-disable-next-line
+import "swiper/css/bundle";
 
 
 //Đoạn code để kết nối đến server lắng nghe sự kiện từ server
