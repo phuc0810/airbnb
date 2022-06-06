@@ -1,0 +1,20 @@
+footer {
+  .container {
+    .flex {
+      h2 {
+        color: white;
+      }
+      .flex {
+        .nav-link {
+          color: rgba(205, 208, 209, 1);
+          opacity: 0.65;
+          &:hover {
+            opacity: 1;
+            color: rgba(255, 255, 255, 1);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+header {
+  .container {
+    .items-stretch {
+      li {
+        .a-header {
+          &::after {
+            content: "";
+            background-color: rgb(234, 179, 8);
+            height: 5px;
+            width: 100%;
+            border-radius: 100px;
+            transition: all 0.5s;
+            transform: scaleX(0);
+          }
+          &:hover::after {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+}
