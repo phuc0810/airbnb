@@ -10,7 +10,9 @@ type Props = {};
 function Footer(props: Props) {
   return (
     <footer
-      className="p-6 dark:bg-gray-800 dark:text-gray-100"
+      className="p-6 dark:bg-gray-800 dark:text-gray-100 wow animate__fadeInDown"
+      data-wow-duration="1s"
+      data-wow-delay="0s"
       style={{ background: "rgba(27,27,27,1.00)" }}
     >
       <div className="container grid grid-cols-2 mx-auto gap-x-3 gap-y-8 sm:grid-cols-3 md:grid-cols-4">

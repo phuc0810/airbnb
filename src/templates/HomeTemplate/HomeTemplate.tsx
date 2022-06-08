@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { Route, useHistory, useParams } from "react-router-dom";
+import HeaderRoomlist from "../../pages/Roomlist/Header/HeaderRoomlist";
 import Footer from "../../pages/_Components/Footer/Footer";
 import Header from "../../pages/_Components/Header/Header";
 
@@ -14,9 +15,13 @@ export default function HomeTemplates(props: Props) {
       exact
       path={props.path}
       render={(propsRoute) => {
+        let header = <Header />;
+        if (props.path === "/danhsachphong/:id") {
+          header = <HeaderRoomlist />;
+        }
         return (
           <div>
-            <Header />
+            {header}
             <props.component {...propsRoute} />
             <hr className="mt-5" />
             <Footer />

@@ -10,6 +10,7 @@ import "swiper/scss/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 
+
 type Props = {};
 
 function Carousel({}: Props) {
