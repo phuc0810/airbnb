@@ -19,6 +19,34 @@ body {
 .swiper {
   width: 90%;
   height: 500px;
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    opacity: 0;
+    padding: 10px 20px;
+    font-size: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+    border-radius: 100px;
+  }
+  &:hover {
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      opacity: 1;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: scale(1, 1);
+    transition: all 0.5s;
+    width: 4%;
+  }
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    transform: scale(1.1, 1.1);
+    background: white;
+    border-radius: 100px;
+
+  }
 }
 
 .swiper-slide {

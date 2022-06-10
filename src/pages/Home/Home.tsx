@@ -3,6 +3,10 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
+import {
+  useLayThongTinChiTietVe,
+  useSelectorQuanLyVe,
+} from "../../redux/QuanLyVe/QuanLyVe.selector";
 
 type Props = {};
 
@@ -247,7 +251,7 @@ export function ComboBox() {
         options={top100Films}
         sx={{ width: 300 }}
         renderInput={(params) => (
-          <TextField {...params} label="Bạn sắp đi đâu?"/>
+          <TextField {...params} label="Bạn sắp đi đâu?" />
         )}
       />
     </div>

@@ -1,0 +1,22 @@
+.header-roomlist {
+  .container {
+    .right-headerRoomlist {
+      .btn-user {
+        .inline {
+          button {
+            padding: 5px 5px;
+            cursor: pointer;
+            border: 1px solid #dddddd;
+            background: transparent;
+            text-align: inherit;
+            border-radius: 21px;
+            transition: all 0.2s ease;
+            &:hover {
+              box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.30);
+            }
+          }
+        }
+      }
+    }
+  }
+}
