@@ -1,0 +1,16 @@
+.Roomlist {
+  .grid {
+    button {
+      color: #717171;
+      white-space: nowrap;
+      &:hover {
+        color: #030303;
+        border-bottom: 2px solid #030303;
+      }
+    }
+  }
+}
+
+.activeNav {
+  border-bottom: 2px solid #030303;
+}

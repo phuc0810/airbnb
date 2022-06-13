@@ -1,12 +1,19 @@
 import Carousel from "./Carousel/Carousel";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import {
-  useLayThongTinChiTietVe,
+  useDanhSachViTri,
   useSelectorQuanLyVe,
 } from "../../redux/QuanLyVe/QuanLyVe.selector";
+import _ from "lodash";
+import axios from "axios";
+import { quanLyVeService } from "../../service/QuanLyVeService";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { Stack } from "@mui/material";
+import { Box } from "@mui/system";
 
 type Props = {};
 
@@ -242,23 +249,50 @@ function Suggestions(props: Props) {
   );
 }
 
-export function ComboBox() {
+export function ComboBox(props: Props) {
+  let dispatch = useDispatch<any>();
+  let [dsViTri, setDanhSachViTri] = useState<any>([]);
+  useEffect(() => {
+    const getDanhSachViTri = createAsyncThunk(
+      "QuanLyVe/getThongTinChiTietVe",
+      async (params, { dispatch }) => {
+        try {
+          const result = await quanLyVeService.LayDanhSachViTri();
+          if (result.status === 200) {
+            setDanhSachViTri(result.data);
+          }
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    );
+    dispatch(getDanhSachViTri());
+  }, []);
+  let mapdsvitri = dsViTri.map((item: any) => {
+    return console.log(item);
+  });
+  console.log(mapdsvitri);
+  
+
   return (
-    <div>
+    <Stack>
       <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={top100Films}
+        id="ds-vi-tri"
+        getOptionLabel={(dsViTri: any) => `${dsViTri.name}`}
+        options={dsViTri}
         sx={{ width: 300 }}
-        renderInput={(params) => (
-          <TextField {...params} label="Bạn sắp đi đâu?" />
-        )}
+        isOptionEqualToValue={(option: any, value): any => {
+          option.name === value.name;
+        }}
+        noOptionsText="không tìm thấy nơi ở"
+        renderOption={(props, dsViTri): any => {
+          <Box component="li" {...props} key={dsViTri.id}>
+            {dsViTri.name}
+          </Box>;
+        }}
+        renderInput={(params) => <TextField {...params} label="Movie" />}
       />
-    </div>
+    </Stack>
   );
 }
-
-const top100Films = [
-  { label: "The Shawshank Redemption", year: 1994 },
-  { label: "The Godfather", year: 1972 },
-];

@@ -1,23 +1,46 @@
 import React from "react";
-import {
-  BarsOutlined,
-  GlobalOutlined,
-  ShoppingCartOutlined,
-  SketchOutlined,
-} from "@ant-design/icons";
+import { BarsOutlined, GlobalOutlined } from "@ant-design/icons";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import { NavLink } from "react-router-dom";
 import { ComboBox } from "../../Home/Home";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import { MenuItem } from "@mui/material";
 
 type Props = {};
 
 function HeaderRoomlist({}: Props) {
+  const settings = [
+    "Đăng ký",
+    "Đăng nhập",
+    "Cho thuê nhà",
+    "Tổ chức",
+    "Trải Nghiệm",
+    "Trợ giúp",
+  ];
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   return (
-    <header className="header-roomlist p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 ">
+    <header
+      className="header-roomlist p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
+      style={{ borderBottom: "2px solid #efefef" }}
+    >
       <div className="container flex justify-between h-16 mx-auto">
         <NavLink
           rel="noopener noreferrer"
@@ -50,26 +73,39 @@ function HeaderRoomlist({}: Props) {
               <GlobalOutlined />
             </span>
           </div>
-          <div className="btn-user p-3 bg-white text-black rounded-3xl mx-5">
-            <div className="inline">
-              <button className="flex justify-center items-center">
-                <BarsOutlined className="text-xl pl-2" />
-                <svg
-                  className="ml-3"
-                  viewBox="0 0 32 32"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  role="presentation"
-                  focusable="false"
-                  style={{
-                    fill: "currentcolor",
-                    width: "30px",
-                  }}
-                >
-                  <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z" />
-                </svg>
-              </button>
-            </div>
+          <div className="ml-12">
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <div className="icon-headerRoomList flex justify-center items-center p-1">
+                    <BarsOutlined />
+                    <AccountCircleIcon className="ml-2" />
+                  </div>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           </div>
         </div>
       </div>

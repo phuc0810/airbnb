@@ -22,8 +22,8 @@ body {
   .swiper-button-prev::after,
   .swiper-button-next::after {
     opacity: 0;
-    padding: 10px 20px;
-    font-size: 25px;
+    padding: 10px 15px;
+    font-size: 15px;
     background: rgba(255, 255, 255, 0.8);
     color: black;
     border-radius: 100px;
@@ -36,16 +36,15 @@ body {
   }
   .swiper-button-prev,
   .swiper-button-next {
-    transform: scale(1, 1);
+    transform: scale(0.8, 0.8);
     transition: all 0.5s;
     width: 4%;
   }
   .swiper-button-prev:hover,
   .swiper-button-next:hover {
-    transform: scale(1.1, 1.1);
+    transform: scale(0.9, 0.9);
     background: white;
     border-radius: 100px;
-
   }
 }
 
@@ -79,4 +78,47 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.swiper-pagination-bullet-active {
+  background-color: white !important;
+}
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  background-color: rgba(173, 184, 183, 1);
+}
+
+// room list
+.swiper-roomList {
+  .swiper {
+    width: 90%;
+    height: 500px;
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      opacity: 0;
+      padding: 10px 15px;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      color: black;
+      border-radius: 100px;
+    }
+    &:hover {
+      .swiper-button-prev::after,
+      .swiper-button-next::after {
+        opacity: 1;
+      }
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      transform: scale(0.8, 0.8);
+      transition: all 0.5s;
+      width: 14%;
+    }
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+      transform: scale(0.9, 0.9);
+      background: white;
+      border-radius: 100px;
+    }
+  }
 }

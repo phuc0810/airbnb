@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ThongTinChiTietVe } from "../../@types/QuanLyVe/QuanLyVe";
+import { DanhSachViTri, NavList } from "../../@types/QuanLyVe/QuanLyVe";
 
 interface typeInitialState {
-  thongTinChiTietVe?: ThongTinChiTietVe[];
+  danhSachViTri?: DanhSachViTri[];
+  navList?: NavList[];
 }
 
 const initialState: typeInitialState = {};
@@ -12,11 +13,14 @@ export const { reducer: quanLyVeReducer, actions: quanLyVeAction } =
     name: "QuanLyVe",
     initialState,
     reducers: {
-      setThongTinChiTietVe: (
+      setDanhSachViTri: (
         state,
-        action: PayloadAction<ThongTinChiTietVe[]>
+        action: PayloadAction<DanhSachViTri[]>
       ) => {
-        state.thongTinChiTietVe = action.payload;
+        state.danhSachViTri = action.payload;
+      },
+      setNavList: (state, action: PayloadAction<NavList[]>) => {
+        state.navList = action.payload;
       },
     },
   });

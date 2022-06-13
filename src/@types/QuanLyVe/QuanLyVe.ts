@@ -1,42 +1,58 @@
-export interface ThongTinChiTietVe {
-  deleteAt: Boolean;
-  _id: String;
-  checkIn: String;
-  checkOut: String;
-  userId: {
-    tickets: String[];
-    deleteAt: Boolean;
-    _id: String;
-    name: String;
-    email: String;
-    password: String;
-    phone: String;
-    birthday: String;
-    gender: Boolean;
-    address: String;
-    type: String;
-    avatar: String;
-  };
-  roomId: {
-    deleteAt: Boolean;
-    _id: String;
-    name: String;
-    guests: Number;
-    bedRoom: Number;
-    bath: Number;
-    description: String;
-    price: Number;
-    elevator: Boolean;
-    hotTub: Boolean;
-    pool: Boolean;
-    indoorFireplace: Boolean;
-    dryer: false;
-    gym: false;
-    kitchen: Boolean;
-    wifi: Boolean;
-    heating: Boolean;
-    cableTV: Boolean;
-    image: String;
-  };
-  __v: Number;
+// export interface ThongTinChiTietVe {
+//   deleteAt: boolean;
+//   _id: string;
+//   checkIn: string;
+//   checkOut: string;
+//   userId: {
+//     tickets: string[];
+//     deleteAt: boolean;
+//     _id: string;
+//     name: string;
+//     email: string;
+//     password: string;
+//     phone: string;
+//     birthday: string;
+//     gender: boolean;
+//     address: string;
+//     type: string;
+//     avatar: string;
+//   };
+//   roomId: {
+//     deleteAt: boolean;
+//     _id: string;
+//     name: string;
+//     guests: number;
+//     bedRoom: number;
+//     bath: number;
+//     description: string;
+//     price: number;
+//     elevator: boolean;
+//     hotTub: boolean;
+//     pool: boolean;
+//     indoorFireplace: boolean;
+//     dryer: false;
+//     gym: false;
+//     kitchen: boolean;
+//     wifi: boolean;
+//     heating: boolean;
+//     cableTV: boolean;
+//     image: string;
+//   };
+//   __v: number;
+// }
+
+export interface NavList {
+  name: string;
+  icon: string;
+  id: string;
+}
+
+export interface DanhSachViTri {
+  _id: string;
+  name: string;
+  province: string;
+  country: string;
+  valueate: number;
+  __v: number;
+  image: string;
 }

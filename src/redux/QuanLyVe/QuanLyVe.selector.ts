@@ -2,18 +2,29 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/rootReducer";
-import { getThongTinChiTietVe } from "./QuanLyVe.thunk";
+import { getDanhSachViTri, getNavList } from "./QuanLyVe.thunk";
 
 export const useSelectorQuanLyVe = () =>
   useSelector((state: RootState) => state.quanLyVeReducer);
 
-export const useLayThongTinChiTietVe = () => {
+export const useDanhSachViTri = () => {
   const dispatch = useDispatch<any>();
-  const { thongTinChiTietVe } = useSelectorQuanLyVe();
+  const { danhSachViTri } = useSelectorQuanLyVe();
   useEffect(() => {
-    if (!thongTinChiTietVe) {
-      dispatch(getThongTinChiTietVe());
+    if (!danhSachViTri) {
+      dispatch(getDanhSachViTri());
     }
   }, []);
-  return { thongTinChiTietVe };
+  return { danhSachViTri };
+};
+
+export const useDispatchNavList = () => {
+  const dispatch = useDispatch<any>();
+  const { navList } = useSelectorQuanLyVe();
+  useEffect(() => {
+    if (!navList) {
+      dispatch(getNavList());
+    }
+  }, []);
+  return { navList };
 };
