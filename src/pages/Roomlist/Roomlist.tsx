@@ -19,9 +19,9 @@ function Roomlist({}: Props) {
   return (
     <div className="Roomlist container max-w-7xl mx-auto">
       <div className="menu grid grid-cols-10 text-center mt-5">
-        {navList?.map((item) => {
+        {navList?.map((item,i) => {
           return (
-            <div>
+            <div key={i}>
               <button
                 className={state === item.name ? "activeNav" : ""}
                 onClick={() => setState(item.name)}

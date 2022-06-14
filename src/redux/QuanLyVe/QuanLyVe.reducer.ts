@@ -13,7 +13,7 @@ export const { reducer: quanLyVeReducer, actions: quanLyVeAction } =
     name: "QuanLyVe",
     initialState,
     reducers: {
-      setDanhSachViTri: (
+      danhSachViTri: (
         state,
         action: PayloadAction<DanhSachViTri[]>
       ) => {

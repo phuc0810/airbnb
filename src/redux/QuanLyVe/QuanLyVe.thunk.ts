@@ -9,7 +9,7 @@ export const getDanhSachViTri = createAsyncThunk(
     try {
       const result = await quanLyVeService.LayDanhSachViTri();
       if (result.status === 200) {
-        dispatch(quanLyVeAction.setDanhSachViTri(result.data));
+        dispatch(quanLyVeAction.danhSachViTri(result.data));
       }
     } catch (error) {
       console.log(error);

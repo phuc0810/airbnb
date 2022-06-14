@@ -14,10 +14,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
+import { quanLyVeAction } from "../../redux/QuanLyVe/QuanLyVe.reducer";
+import { useHistory } from "react-router-dom";
 
 type Props = {};
 
 function Home(props: Props) {
+  let history = useHistory();
   return (
     <div className="container relative">
       <div className="search bg-white p-3 flex justify-center items-center">
@@ -61,7 +64,12 @@ function Home(props: Props) {
             className="w-52"
           />
         </div>
-        <button className="p-2 mt-5 bg-pink-500 rounded-full">
+        <button
+          className="p-2 mt-5 bg-pink-500 rounded-full"
+          onClick={() => {
+            // history.push(`/danhsachphong/${id}`);
+          }}
+        >
           <SearchIcon className="text-white" />
         </button>
       </div>
@@ -261,7 +269,6 @@ export function ComboBox(props: Props) {
           if (result.status === 200) {
             setDanhSachViTri(result.data);
           }
-          console.log(result);
         } catch (error) {
           console.log(error);
         }
@@ -269,30 +276,26 @@ export function ComboBox(props: Props) {
     );
     dispatch(getDanhSachViTri());
   }, []);
-  let mapdsvitri = dsViTri.map((item: any) => {
-    return console.log(item);
-  });
-  console.log(mapdsvitri);
-  
 
   return (
-    <Stack>
-      <Autocomplete
-        id="ds-vi-tri"
-        getOptionLabel={(dsViTri: any) => `${dsViTri.name}`}
-        options={dsViTri}
-        sx={{ width: 300 }}
-        isOptionEqualToValue={(option: any, value): any => {
-          option.name === value.name;
-        }}
-        noOptionsText="không tìm thấy nơi ở"
-        renderOption={(props, dsViTri): any => {
-          <Box component="li" {...props} key={dsViTri.id}>
-            {dsViTri.name}
-          </Box>;
-        }}
-        renderInput={(params) => <TextField {...params} label="Movie" />}
-      />
-    </Stack>
+    <Autocomplete
+      disablePortal
+      id="ds-vi-tri"
+      getOptionLabel={(dsViTri: any) => `${dsViTri.name}`}
+      options={dsViTri}
+      sx={{ width: 300 }}
+      isOptionEqualToValue={(option: any, value: any) =>
+        option.name === value.name
+      }
+      noOptionsText="không tìm thấy nơi ở"
+      renderOption={(props, dsViTri): any => (
+        <Box component="li" {...props} key={dsViTri.id}>
+          {dsViTri.name}
+        </Box>
+      )}
+      renderInput={(params) => (
+        <TextField {...params} label="Nơi bạn muốn đến" />
+      )}
+    />
   );
 }
