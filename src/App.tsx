@@ -1,11 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 import Home from "./pages/Home/Home";
 import Experience from "./pages/Home/Experience/Experience";
 import OnlineExperience from "./pages/Home/OnlineExperience/OnlineExperience";
 import Roomlist from "./pages/Roomlist/Roomlist";
+import Details from "./pages/Details/Details";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           component={OnlineExperience}
         />
         <HomeTemplate path="/danhsachphong/:id" component={Roomlist} />
+        <Route exact path="/chitietphong/:id" component={Details} />
 
         <HomeTemplate path="/" component={Home} />
       </Switch>

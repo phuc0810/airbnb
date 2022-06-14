@@ -39,7 +39,7 @@ function HeaderRoomlist({}: Props) {
   return (
     <header
       className="header-roomlist p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
-      style={{ borderBottom: "2px solid #efefef" }}
+      style={{ borderBottom: "2px solid #efefef",position:'fixed' }}
     >
       <div className="container flex justify-between h-16 mx-auto">
         <NavLink

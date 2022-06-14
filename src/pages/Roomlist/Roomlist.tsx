@@ -17,9 +17,15 @@ function Roomlist({}: Props) {
   const [state, setState] = useState("Thang máy");
 
   return (
-    <div className="Roomlist container max-w-7xl mx-auto">
-      <div className="menu grid grid-cols-10 text-center mt-5">
-        {navList?.map((item,i) => {
+    <div
+      className="Roomlist container max-w-7xl mx-auto relative"
+      style={{ top: "120px" }}
+    >
+      <div
+        className="menu grid grid-cols-10 text-center mt-5 sticky bg-white z-50"
+        style={{ top: "100px" }}
+      >
+        {navList?.map((item, i) => {
           return (
             <div key={i}>
               <button
@@ -63,7 +69,7 @@ function Card() {
             zIndex: "10",
           }}
         >
-          <FavoriteIcon/>
+          <FavoriteIcon />
         </IconButton>
 
         <Swiper
