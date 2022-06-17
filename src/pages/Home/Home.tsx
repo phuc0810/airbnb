@@ -21,6 +21,8 @@ type Props = {};
 
 function Home(props: Props) {
   let history = useHistory();
+  let { viTri } = useSelectorQuanLyVe();
+
   return (
     <div className="container relative">
       <div className="search bg-white p-3 flex justify-center items-center">
@@ -67,7 +69,7 @@ function Home(props: Props) {
         <button
           className="p-2 mt-5 bg-pink-500 rounded-full"
           onClick={() => {
-            // history.push(`/danhsachphong/${id}`);
+            history.push(`/danhsachphong/${viTri?.name}`);
           }}
         >
           <SearchIcon className="text-white" />
@@ -268,6 +270,7 @@ export function ComboBox(props: Props) {
           const result = await quanLyVeService.LayDanhSachViTri();
           if (result.status === 200) {
             setDanhSachViTri(result.data);
+            dispatch(quanLyVeAction.danhSachViTri(result.data));
           }
         } catch (error) {
           console.log(error);
@@ -280,6 +283,8 @@ export function ComboBox(props: Props) {
   return (
     <Autocomplete
       disablePortal
+      onChange={(_, val) => dispatch(quanLyVeAction.setViTri(val))}
+      // onInputChange={val => console.log({val})}
       id="ds-vi-tri"
       getOptionLabel={(dsViTri: any) => `${dsViTri.name}`}
       options={dsViTri}
@@ -289,7 +294,7 @@ export function ComboBox(props: Props) {
       }
       noOptionsText="không tìm thấy nơi ở"
       renderOption={(props, dsViTri): any => (
-        <Box component="li" {...props} key={dsViTri.id}>
+        <Box className="z-20" component="li" {...props} key={dsViTri.id}>
           {dsViTri.name}
         </Box>
       )}

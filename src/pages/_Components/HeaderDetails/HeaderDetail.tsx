@@ -17,7 +17,7 @@ import { useSelectorQuanLyVe } from "../../../redux/QuanLyVe/QuanLyVe.selector";
 
 type Props = {};
 
-function HeaderRoomlist(props: Props) {
+function HeaderDetail(props: Props) {
   const settings = [
     "Đăng ký",
     "Đăng nhập",
@@ -40,7 +40,7 @@ function HeaderRoomlist(props: Props) {
 
   return (
     <header
-      className="header-roomlist fixed p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
+      className="header-roomlist p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
       style={{ borderBottom: "2px solid #efefef", top: 0 }}
     >
       <div className="container flex justify-between h-16 mx-auto">
@@ -115,7 +115,7 @@ function HeaderRoomlist(props: Props) {
   );
 }
 
-export default HeaderRoomlist;
+export default HeaderDetail;
 
 function Search(props: Props) {
   let history = useHistory();

@@ -12,32 +12,37 @@ import { IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { DanhSachViTri } from "../../@types/QuanLyVe/QuanLyVe";
 import { useHistory } from "react-router-dom";
+import { useDispatchHotelList } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
+import { hotelList } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 
 type Props = {};
 
-function Roomlist({}: Props) {
-  // const { navList } = useDispatchNavList();
-  // const [state, setState] = useState("Thang máy");
-  // const ref = useRef<HTMLDivElement>(null);
-  let { danhSachViTri, viTri } = useSelectorQuanLyVe();
+function HotelList(props: Props) {
+  const { navList } = useDispatchNavList();
+  const [state, setState] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+  let { viTri } = useSelectorQuanLyVe();
+  let { hotelList } = useDispatchHotelList();
+  console.log(navList);
+  console.log(hotelList);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", () => {
-  //     if (window.scrollY > 50) {
-  //       ref.current?.classList.add("scroll");
-  //     } else {
-  //       ref.current?.classList.remove("scroll");
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        ref.current?.classList.add("scroll");
+      } else {
+        ref.current?.classList.remove("scroll");
+      }
+    });
+  }, []);
 
   return (
     <div
       className="Roomlist container max-w-7xl mx-auto relative"
       style={{ top: "120px" }}
     >
-      {/* //*menu bar  */}
-      {/* <div
+      {/* //!menu bar  */}
+      <div
         className="menu grid grid-cols-10 text-center sticky bg-white"
         style={{ top: "98px", zIndex: "3" }}
         ref={ref}
@@ -45,7 +50,7 @@ function Roomlist({}: Props) {
         {navList?.map((item, i) => {
           let classActiveBtn = state === item.name ? "activeNav" : "";
           return (
-            <div>
+            <div key={i}>
               <button
                 key={i}
                 disabled={state === item.name}
@@ -64,12 +69,12 @@ function Roomlist({}: Props) {
             </div>
           );
         })}
-      </div> */}
+      </div>
       {/* //nguyên cái phần này tạo component riêng dưa qua header, cái list card thì liên quan gì tới cái menu mà nó nằm chugn ở đay v */}
       {/* //* giao diện phòng  */}
-      <div className="grid grid-cols-4 mt-10 mb-14 gap-9">
-        {danhSachViTri
-          ?.filter((item) => item.province === viTri?.province)
+      <div className="grid grid-cols-4 mt-10 gap-9">
+        {hotelList
+          ?.filter((item) => item.locationId?.province === viTri?.province)
           .map((item, i) => {
             return <Card item={item} key={i} />;
           })}
@@ -78,10 +83,29 @@ function Roomlist({}: Props) {
   );
 }
 
-export default Roomlist;
+export default HotelList;
 
 function Card(props: Card) {
-  let { name, image, province, valueate, _id, country } = props.item;
+  let {
+    name,
+    description,
+    price,
+    locationId,
+    bath,
+    bedRoom,
+    cableTV,
+    gym,
+    hotTub,
+    heating,
+    guests,
+    image,
+    pool,
+    wifi,
+    kitchen,
+    indoorFireplace,
+    elevator,
+    dryer,
+  } = props.item;
   let history = useHistory();
   return (
     <div
@@ -97,7 +121,7 @@ function Card(props: Card) {
           zIndex: "2",
         }}
       >
-        <FavoriteIcon />
+        <FavoriteIcon className="text-black" />
       </IconButton>
 
       <Swiper
@@ -113,58 +137,56 @@ function Card(props: Card) {
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push("/chitietphong/:id");
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push("/chitietphong/:id");
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push("/chitietphong/:id");
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push("/chitietphong/:id");
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push("/chitietphong/:id");
           }}
         ></SwiperSlide>
       </Swiper>
       <div
-        className="text-black leading-6 w-full mt-3"
+        className="text-black leading-6 w-full"
         onClick={() => {
-          history.push(`/hotellist/${province}`);
+          history.push("/chitietphong/:id");
         }}
       >
         <div className="flex justify-between items-center">
-          <span className="font-bold">
-            {country},{province}
-          </span>
+          <span className="font-bold">{name}</span>
           <span className="flex justify-center items-center">
-            {valueate}
+            {/* {} */}
             <StarIcon />
           </span>
         </div>
         <span>cách 3km</span> <br />
         <span>ngày 03 - ngày 08 tháng 7</span>
         <br />
-        <span className="font-bold">$41/đêm</span>
+        <span className="font-bold">{price.toLocaleString()}/đêm</span>
       </div>
     </div>
   );
 }
 
 interface Card {
-  item: DanhSachViTri;
+  item: hotelList;
 }

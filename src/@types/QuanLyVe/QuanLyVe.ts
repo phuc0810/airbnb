@@ -56,3 +56,14 @@ export interface DanhSachViTri {
   __v: number;
   image: string;
 }
+export interface ViTri {
+  country: string;
+  deleteAt: boolean;
+  image: string;
+  name: string;
+  province: string;
+  valueate: number;
+  __v: number;
+  _id: string;
+}
+

@@ -7,6 +7,8 @@ import Experience from "./pages/Home/Experience/Experience";
 import OnlineExperience from "./pages/Home/OnlineExperience/OnlineExperience";
 import Roomlist from "./pages/Roomlist/Roomlist";
 import Details from "./pages/Details/Details";
+import DetailsTemplate from "./templates/DetailTemplate/DetailTemplate";
+import HotelList from "./pages/HotelList/HotelList";
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
           component={OnlineExperience}
         />
         <HomeTemplate path="/danhsachphong/:id" component={Roomlist} />
-        <Route exact path="/chitietphong/:id" component={Details} />
+        <HomeTemplate path="/hotellist/:province" component={HotelList} />
+        <DetailsTemplate path="/chitietphong/:id" component={Details} />
 
         <HomeTemplate path="/" component={Home} />
       </Switch>
