@@ -64,90 +64,93 @@ function Details(props: Props) {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
-        <div
-          className="col-span-2 row-span-2"
-          style={{
-            backgroundImage: `url(${reviewRoom?.image})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            borderTopLeftRadius: "10px",
-            borderBottomLeftRadius: "10px",
-            height: "400px",
-          }}
-        >
-          <img
-            src="http://picsum.photos/300"
-            alt=""
-            style={{ width: "100%", opacity: "0", height: "400px" }}
-          />
-        </div>
-        <div
-          style={{
-            backgroundImage: `url(${reviewRoom?.image})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "196px",
-          }}
-        >
-          <img
-            src="http://picsum.photos/300"
-            alt=""
-            style={{ width: "100%", opacity: "0" }}
-          />
-        </div>
-        <div
-          style={{
-            backgroundImage: `url(${reviewRoom?.image})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            borderTopRightRadius: "10px",
-            height: "196px",
-          }}
-        >
-          <img
-            src="http://picsum.photos/300"
-            alt=""
+      <div className="relative">
+        <div className="grid grid-cols-4 gap-2">
+          <div
+            className="col-span-2 row-span-2"
             style={{
-              width: "100%",
-              opacity: "0",
+              backgroundImage: `url(${reviewRoom?.image})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              borderTopLeftRadius: "10px",
+              borderBottomLeftRadius: "10px",
+              height: "400px",
             }}
-          />
+          >
+            <img
+              src="http://picsum.photos/300"
+              alt=""
+              style={{ width: "100%", opacity: "0", height: "400px" }}
+            />
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${reviewRoom?.image})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              height: "196px",
+            }}
+          >
+            <img
+              src="http://picsum.photos/300"
+              alt=""
+              style={{ width: "100%", opacity: "0" }}
+            />
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${reviewRoom?.image})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              borderTopRightRadius: "10px",
+              height: "196px",
+            }}
+          >
+            <img
+              src="http://picsum.photos/300"
+              alt=""
+              style={{
+                width: "100%",
+                opacity: "0",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${reviewRoom?.image})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              height: "196px",
+            }}
+          >
+            <img
+              src="http://picsum.photos/300"
+              alt=""
+              style={{ width: "100%", opacity: "0" }}
+            />
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${reviewRoom?.image})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              borderBottomRightRadius: "10px",
+              height: "196px",
+            }}
+          >
+            <img
+              src="http://picsum.photos/300"
+              alt=""
+              style={{ width: "100%", opacity: "0" }}
+            />
+          </div>
         </div>
-        <div
-          style={{
-            backgroundImage: `url(${reviewRoom?.image})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "196px",
-          }}
-        >
-          <img
-            src="http://picsum.photos/300"
-            alt=""
-            style={{ width: "100%", opacity: "0" }}
-          />
-        </div>
-        <div
-          style={{
-            backgroundImage: `url(${reviewRoom?.image})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            borderBottomRightRadius: "10px",
-            height: "196px",
-          }}
-        >
-          <img
-            src="http://picsum.photos/300"
-            alt=""
-            style={{ width: "100%", opacity: "0" }}
-          />
-        </div>
+        <FullScreenDialog/>
       </div>
       <div className="flex pb-8" style={{ borderBottom: "2px solid #dddddd" }}>
         <div className="left" style={{ width: "60%" }}>
@@ -167,7 +170,10 @@ function Details(props: Props) {
                 </span>
               </div>
               <Stack direction="row" spacing={2}>
-                <Avatar alt="Remy Sharp" src="http://picsum.photos/200" />
+                <Avatar
+                  alt="Remy Sharp"
+                  src={`https://i.pravatar.cc/150?img=6`}
+                />
               </Stack>
             </div>
             <div
@@ -261,7 +267,7 @@ function Details(props: Props) {
             return (
               <div className="userComment mb-5" key={i}>
                 <div className="flex justify-start items-center">
-                  <ImageAvatars roomId={item.roomId} />
+                  <ImageAvatars index={i} />
                   <div className="ml-4 leading-5">
                     <span className="text-black font-bold">
                       {item.userId?.name}
@@ -282,7 +288,6 @@ function Details(props: Props) {
           })}
         </div>
       </div>
-      <FullScreenDialog />
     </div>
   );
 }
@@ -290,10 +295,12 @@ function Details(props: Props) {
 export default Details;
 
 function ImageAvatars(props: imageAvatars) {
-  let { image } = props.roomId;
   return (
     <Stack direction="row" spacing={2}>
-      <Avatar alt="Remy Sharp" src={`${image}`} />
+      <Avatar
+        alt="Remy Sharp"
+        src={`https://i.pravatar.cc/150?img=${props.index}`}
+      />
     </Stack>
   );
 }
@@ -343,9 +350,9 @@ function FullScreenDialog() {
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open full-screen dialog
+    <div className="absolute right-3 bottom-6">
+      <Button className="bg-white text-black" variant="outlined" onClick={handleClickOpen} style={{border:'2px solid black'}}>
+       Hiển thị tất cả ảnh
       </Button>
       <Dialog
         fullScreen
@@ -353,7 +360,7 @@ function FullScreenDialog() {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "relative", background: "black" }}>
+        <AppBar sx={{ position: "fix", background: "black" }}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -368,8 +375,72 @@ function FullScreenDialog() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <div className="max-w-7xl mx-auto">
-          
+        <div className="max-w-7xl mx-auto mt-28">
+          <div className="grid grid-cols-2 gap-2">
+            <div
+              className="col-span-2"
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=1)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=1"
+                alt=""
+              />
+            </div>
+            <div>
+              <img src="http://picsum.photos/400?random=2" alt="" />
+            </div>
+            <div>
+              <img src="http://picsum.photos/400?random=3" alt="" />
+            </div>
+            <div
+              className="col-span-2"
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=10)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=4"
+                alt=""
+              />
+            </div>
+            <div>
+              <img src="http://picsum.photos/400?random=5" alt="" />
+            </div>
+            <div>
+              <img src="http://picsum.photos/400?random=6" alt="" />
+            </div>
+            <div
+              className="col-span-2"
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=7)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=10"
+                alt=""
+              />
+            </div>
+            <div>
+              <img src="http://picsum.photos/400?random=8" alt="" />
+            </div>
+            <div>
+              <img src="http://picsum.photos/400?random=9" alt="" />
+            </div>
+          </div>
         </div>
       </Dialog>
     </div>
@@ -377,5 +448,5 @@ function FullScreenDialog() {
 }
 
 interface imageAvatars {
-  roomId: RoomId;
+  index: number;
 }
