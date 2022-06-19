@@ -18,6 +18,18 @@ import { useDispatchLayDanhSachDanhGiaTheoPhong } from "../../redux/QuanLyDanhGi
 import { RoomId } from "../../@types/QuanLyDanhGia/QuanLyDanhGia";
 import moment from "moment";
 import { useDispatchReviewRoom } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
+import Dialog from "@mui/material/Dialog";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
 
 type Props = {};
 
@@ -34,7 +46,9 @@ function Details(props: Props) {
       <h1 className="text-3xl my-3 font-bold">{reviewRoom?.name}</h1>
       <div className="flex justify-between my-5">
         <p>
-          <StarIcon className="text-pink-500" /> <span className="font-bold">4,38</span><span className="underline">(18 đánh giá)</span> -{" "}
+          <StarIcon className="text-pink-500" />{" "}
+          <span className="font-bold">4,38</span>
+          <span className="underline">(18 đánh giá)</span> -{" "}
           <LoyaltyIcon className="text-pink-500" /> chủ nhà siêu cấp -{" "}
           <span className="underline">
             Thành Phố Vũng Tàu , Bà Rịa - Vũng Tàu,Việt Nam
@@ -268,6 +282,7 @@ function Details(props: Props) {
           })}
         </div>
       </div>
+      <FullScreenDialog />
     </div>
   );
 }
@@ -304,6 +319,60 @@ function DatPhong() {
         <div></div>
       </div>
     </form>
+  );
+}
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function FullScreenDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open full-screen dialog
+      </Button>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: "relative", background: "black" }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Tất cả hình ảnh về khách sạn
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <div className="max-w-7xl mx-auto">
+          
+        </div>
+      </Dialog>
+    </div>
   );
 }
 
