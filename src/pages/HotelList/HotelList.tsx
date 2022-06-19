@@ -23,8 +23,7 @@ function HotelList(props: Props) {
   const ref = useRef<HTMLDivElement>(null);
   let { viTri } = useSelectorQuanLyVe();
   let { hotelList } = useDispatchHotelList();
-  console.log(navList);
-  console.log(hotelList);
+  console.log('hotel list',hotelList);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -105,6 +104,7 @@ function Card(props: Card) {
     indoorFireplace,
     elevator,
     dryer,
+    _id,
   } = props.item;
   let history = useHistory();
   return (
@@ -137,38 +137,38 @@ function Card(props: Card) {
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push("/chitietphong/:id");
+            history.push(`/chitietphong/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push("/chitietphong/:id");
+            history.push(`/chitietphong/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push("/chitietphong/:id");
+            history.push(`/chitietphong/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push("/chitietphong/:id");
+            history.push(`/chitietphong/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push("/chitietphong/:id");
+            history.push(`/chitietphong/${_id}`);
           }}
         ></SwiperSlide>
       </Swiper>
       <div
         className="text-black leading-6 w-full"
         onClick={() => {
-          history.push("/chitietphong/:id");
+          history.push(`/chitietphong/${_id}`);
         }}
       >
         <div className="flex justify-between items-center">

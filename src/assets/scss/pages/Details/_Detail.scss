@@ -1,0 +1,21 @@
+.details {
+  .evaluate {
+    .assessments {
+      .rating {
+        .api-24 {
+          display: flex;
+          justify-content: space-between;
+          width: 60%;
+          .rating-index {
+            &::before {
+              content: "";
+              width: 10px;
+              height: 10px;
+              background-color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}

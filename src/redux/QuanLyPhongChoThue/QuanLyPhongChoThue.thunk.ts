@@ -15,3 +15,17 @@ export const getHotelList = createAsyncThunk(
     }
   }
 );
+
+export const getReviewRoom = createAsyncThunk(
+  "QuanLyPhongChoThue/getReviewRoom",
+  async (id: string, { dispatch }) => {
+    try {
+      const result = await quanLyPhongChothue.LayReviewRoom(id);
+      if (result.status === 200) {
+        dispatch(quanLyPhongChoThueAction.setReviewRoom(result.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);

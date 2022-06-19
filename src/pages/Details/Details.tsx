@@ -9,29 +9,42 @@ import MoveDownIcon from "@mui/icons-material/MoveDown";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useDispatchNavList } from "../../redux/QuanLyVe/QuanLyVe.selector";
 import { Button } from "@mui/material";
+import { Input } from "antd";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
+import { values } from "lodash";
+import { useParams } from "react-router-dom";
+import { useDispatchLayDanhSachDanhGiaTheoPhong } from "../../redux/QuanLyDanhGia/QuanLyDanhGia.selector";
+import { RoomId } from "../../@types/QuanLyDanhGia/QuanLyDanhGia";
+import moment from "moment";
+import { useDispatchReviewRoom } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
 
 type Props = {};
 
-function Details({}: Props) {
+function Details(props: Props) {
   let { navList } = useDispatchNavList();
-  console.log(navList);
+  let { id } = useParams<{ id: string }>();
+  let { roomIsRated } = useDispatchLayDanhSachDanhGiaTheoPhong(id);
+  let { reviewRoom } = useDispatchReviewRoom(id);
+
+  console.log(reviewRoom);
 
   return (
-    <div className="container max-w-7xl mx-auto">
-      <h1 className="text-3xl">Ten Khach San</h1>
-      <div className="flex justify-between">
+    <div className="details container max-w-7xl mx-auto">
+      <h1 className="text-3xl my-3 font-bold">{reviewRoom?.name}</h1>
+      <div className="flex justify-between my-5">
         <p>
-          <StarIcon className="text-pink-500" /> 4,38(18 đánh giá) -{" "}
+          <StarIcon className="text-pink-500" /> <span className="font-bold">4,38</span><span className="underline">(18 đánh giá)</span> -{" "}
           <LoyaltyIcon className="text-pink-500" /> chủ nhà siêu cấp -{" "}
           <span className="underline">
             Thành Phố Vũng Tàu , Bà Rịa - Vũng Tàu,Việt Nam
           </span>
         </p>
-        <div>
-          <span>
+        <div className="flex">
+          <span className="font-bold flex justify-center items-center">
             <IosShareIcon /> <span className="underline">Chia sẻ</span>
           </span>
-          <span>
+          <span className="ml-10 font-bold flex justify-center items-center">
             <FavoriteBorderIcon /> <span className="underline">Lưu</span>
           </span>
         </div>
@@ -41,7 +54,7 @@ function Details({}: Props) {
         <div
           className="col-span-2 row-span-2"
           style={{
-            backgroundImage: "url(http://picsum.photos/300)",
+            backgroundImage: `url(${reviewRoom?.image})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -58,7 +71,7 @@ function Details({}: Props) {
         </div>
         <div
           style={{
-            backgroundImage: "url(http://picsum.photos/300)",
+            backgroundImage: `url(${reviewRoom?.image})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -73,7 +86,7 @@ function Details({}: Props) {
         </div>
         <div
           style={{
-            backgroundImage: "url(http://picsum.photos/300)",
+            backgroundImage: `url(${reviewRoom?.image})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -92,7 +105,7 @@ function Details({}: Props) {
         </div>
         <div
           style={{
-            backgroundImage: "url(http://picsum.photos/300)",
+            backgroundImage: `url(${reviewRoom?.image})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -107,7 +120,7 @@ function Details({}: Props) {
         </div>
         <div
           style={{
-            backgroundImage: "url(http://picsum.photos/300)",
+            backgroundImage: `url(${reviewRoom?.image})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -122,19 +135,26 @@ function Details({}: Props) {
           />
         </div>
       </div>
-      <div className="flex">
+      <div className="flex pb-8" style={{ borderBottom: "2px solid #dddddd" }}>
         <div className="left" style={{ width: "60%" }}>
           <div style={{ width: "80%" }}>
             <div
-              className="flex justify-between pb-10"
+              className="flex justify-between pb-10 mt-10"
               style={{ borderBottom: "2px solid #dddddd" }}
             >
               <div>
-                <span>Toàn bộ căn hộ condo.Chủ nhà Phong</span>
+                <span className="font-bold text-xl">{reviewRoom?.name}</span>
                 <br />
-                <span>6 khách - 2 phòng ngủ - 2 phòng tắm</span>
+                <span>
+                  <span>
+                    {reviewRoom?.guests} khách - {reviewRoom?.bedRoom} phòng ngủ
+                    - {reviewRoom?.bath} phòng tắm
+                  </span>
+                </span>
               </div>
-              <ImageAvatars />
+              <Stack direction="row" spacing={2}>
+                <Avatar alt="Remy Sharp" src="http://picsum.photos/200" />
+              </Stack>
             </div>
             <div
               className="mt-5 pb-10"
@@ -194,7 +214,7 @@ function Details({}: Props) {
         </div>
 
         {/* ------------------------ */}
-        <div className="right" style={{ width: "40%" }}>
+        <div className="right mt-10" style={{ width: "40%" }}>
           <div
             style={{
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -207,12 +227,45 @@ function Details({}: Props) {
                   <span className="font-bold text-xl">$44</span>/đêm
                 </div>
                 <div>
-                  <StarIcon className="text-pink-500" style={{fontSize:'15px'}} />
+                  <StarIcon
+                    className="text-pink-500"
+                    style={{ fontSize: "15px" }}
+                  />
                   4,38 <span className="underline">(18 đánh giá)</span>
                 </div>
               </div>
+              <DatPhong />
             </div>
           </div>
+        </div>
+      </div>
+      <div className="mt-8">
+        <StarIcon className="text-pink-500" />{" "}
+        <span className="text-lg font-bold">4,38(18 đánh giá)</span>
+        <div className=" grid grid-cols-2 mt-6">
+          {roomIsRated?.map((item, i) => {
+            return (
+              <div className="userComment mb-5" key={i}>
+                <div className="flex justify-start items-center">
+                  <ImageAvatars roomId={item.roomId} />
+                  <div className="ml-4 leading-5">
+                    <span className="text-black font-bold">
+                      {item.userId?.name}
+                    </span>
+                    <br />
+                    <span className="text-gray-500">
+                      Tháng {moment(item.created_at).format("MM")} Năm{" "}
+                      {moment(item.created_at).format("YYYY")}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="content-comment mt-1" style={{ width: "80%" }}>
+                  {item.content}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -221,10 +274,39 @@ function Details({}: Props) {
 
 export default Details;
 
-function ImageAvatars() {
+function ImageAvatars(props: imageAvatars) {
+  let { image } = props.roomId;
   return (
     <Stack direction="row" spacing={2}>
-      <Avatar alt="Remy Sharp" src="http://i.pravatar.cc/300" />
+      <Avatar alt="Remy Sharp" src={`${image}`} />
     </Stack>
   );
+}
+
+function DatPhong() {
+  const dispatch = useDispatch<any>();
+  const formik = useFormik({
+    initialValues: {},
+    onSubmit: (values) => {},
+  });
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <div
+        className="flex flex-col"
+        style={{ borderBottom: "2px solid #dddddd" }}
+      >
+        <div className="flex">
+          <div>
+            <input type="text" />
+          </div>
+          <div></div>
+        </div>
+        <div></div>
+      </div>
+    </form>
+  );
+}
+
+interface imageAvatars {
+  roomId: RoomId;
 }

@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { hotelList } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
+import {
+  hotelList,
+  ReviewRoom,
+} from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 
 interface typeInitialState {
   hotelList?: hotelList[];
+  reviewRoom?: ReviewRoom;
 }
 
 const initialState: typeInitialState = {};
@@ -16,6 +20,9 @@ export const {
   reducers: {
     setHotelList: (state, action: PayloadAction<hotelList[]>) => {
       state.hotelList = action.payload;
+    },
+    setReviewRoom: (state, action: PayloadAction<ReviewRoom>) => {
+      state.reviewRoom = action.payload;
     },
   },
 });
