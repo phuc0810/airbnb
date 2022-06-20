@@ -47,7 +47,14 @@ export interface ReviewRoom {
   wifi: boolean;
   heating: boolean;
   cableTV: boolean;
-  locationId: null;
+  locationId?: {
+    deleteAt: boolean;
+    name: string;
+    province: string;
+    country: string;
+    valueate: number;
+    image: string;
+  };
   __v: number;
   image: string;
 }

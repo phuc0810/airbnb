@@ -38,6 +38,7 @@ function Details(props: Props) {
   let { id } = useParams<{ id: string }>();
   let { roomIsRated } = useDispatchLayDanhSachDanhGiaTheoPhong(id);
   let { reviewRoom } = useDispatchReviewRoom(id);
+  console.log(id);
 
   console.log(reviewRoom);
 
@@ -47,7 +48,7 @@ function Details(props: Props) {
       <div className="flex justify-between my-5">
         <p>
           <StarIcon className="text-pink-500" />{" "}
-          <span className="font-bold">4,38</span>
+          <span className="font-bold">{reviewRoom?.locationId?.valueate}</span>
           <span className="underline">(18 đánh giá)</span> -{" "}
           <LoyaltyIcon className="text-pink-500" /> chủ nhà siêu cấp -{" "}
           <span className="underline">
@@ -150,7 +151,7 @@ function Details(props: Props) {
             />
           </div>
         </div>
-        <FullScreenDialog/>
+        <FullScreenDialog />
       </div>
       <div className="flex pb-8" style={{ borderBottom: "2px solid #dddddd" }}>
         <div className="left" style={{ width: "60%" }}>
@@ -319,7 +320,7 @@ function DatPhong() {
       >
         <div className="flex">
           <div>
-            <input type="text" />
+            <Input  placeholder="jello"/>
           </div>
           <div></div>
         </div>
@@ -328,6 +329,8 @@ function DatPhong() {
     </form>
   );
 }
+
+// diablog
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -351,8 +354,16 @@ function FullScreenDialog() {
 
   return (
     <div className="absolute right-3 bottom-6">
-      <Button className="bg-white text-black" variant="outlined" onClick={handleClickOpen} style={{border:'2px solid black'}}>
-       Hiển thị tất cả ảnh
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        style={{
+          border: "2px solid black",
+          color: "black",
+          backgroundColor: "white",
+        }}
+      >
+        Hiển thị tất cả ảnh
       </Button>
       <Dialog
         fullScreen

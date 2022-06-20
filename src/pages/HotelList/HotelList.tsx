@@ -181,7 +181,7 @@ function Card(props: Card) {
         <span>cách 3km</span> <br />
         <span>ngày 03 - ngày 08 tháng 7</span>
         <br />
-        <span className="font-bold">{price.toLocaleString()}/đêm</span>
+        <span className="font-bold">{price?.toLocaleString()}/đêm</span>
       </div>
     </div>
   );

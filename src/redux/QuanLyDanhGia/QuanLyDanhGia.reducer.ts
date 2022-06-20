@@ -12,7 +12,7 @@ export const { reducer: quanLyDanhGiaReducer, actions: quanLyDanhGiaAction } =
     name: "QuanLyDanhGia",
     initialState,
     reducers: {
-      setRoomIsRate: (state, action: PayloadAction<roomIsRated[]>) => {
+      setRoomIsRate: (state, action: PayloadAction<roomIsRated[] | undefined>) => {
         state.roomIsRated = action.payload;
       },
     },

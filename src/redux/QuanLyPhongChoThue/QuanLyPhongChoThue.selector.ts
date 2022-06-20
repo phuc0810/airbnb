@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/rootReducer";
+import { quanLyPhongChoThueAction } from "./QuanLyPhongChoThue.reducer";
 import { getHotelList, getReviewRoom } from "./QuanLyPhongChoThue.thunk";
 
 export const useQuanLyPhongChoThue = () =>
@@ -24,6 +25,9 @@ export const useDispatchReviewRoom = (id: string) => {
   useEffect(() => {
     if (!reviewRoom) {
       dispatch(getReviewRoom(id));
+    }
+    return()=>{
+      dispatch(quanLyPhongChoThueAction.setReviewRoom(undefined))
     }
   }, []);
   return { reviewRoom };
