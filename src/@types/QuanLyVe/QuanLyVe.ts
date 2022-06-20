@@ -45,6 +45,7 @@ export interface NavList {
   name: string;
   icon: string;
   id: string;
+  nameID:string
 }
 
 export interface DanhSachViTri {

@@ -23,7 +23,8 @@ function HotelList(props: Props) {
   const ref = useRef<HTMLDivElement>(null);
   let { viTri } = useSelectorQuanLyVe();
   let { hotelList } = useDispatchHotelList();
-  console.log('hotel list',hotelList);
+  console.log("hotel list", hotelList);
+  console.log("navList", navList);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -47,14 +48,14 @@ function HotelList(props: Props) {
         ref={ref}
       >
         {navList?.map((item, i) => {
-          let classActiveBtn = state === item.name ? "activeNav" : "";
+          let classActiveBtn = state === item.nameID ? "activeNav" : "";
           return (
             <div key={i}>
               <button
                 key={i}
-                disabled={state === item.name}
+                disabled={state === item.nameID}
                 className={`${classActiveBtn}`}
-                onClick={() => setState(item.name)}
+                onClick={() => setState(item.nameID)}
               >
                 <div className="flex flex-col justify-center items-center">
                   <img
