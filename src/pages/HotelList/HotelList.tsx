@@ -19,16 +19,19 @@ import {
 import { DSHotel } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 import { quanLyPhongChoThueAction } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.reducer";
 import CardSkeleton from "./CardSkeleton/CardSkeleton";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import SkeletonMui from '@mui/material/Skeleton';
 
 type Props = {};
 
 function HotelList(props: Props) {
   let dispatch = useDispatch<any>();
+  // *menu Bar
+  let { LoadingMenuBar } = useSelectorQuanLyVe();
   const { navList } = useDispatchNavList();
   const [state, setState] = useState("");
   const ref = useRef<HTMLDivElement>(null);
+  // *danh sach hotel
   let { viTri } = useSelectorQuanLyVe();
   let { hotelList } = useDispatchHotelList();
   let { changeHotelList, isLoading } = useQuanLyPhongChoThue();
@@ -94,8 +97,9 @@ function HotelList(props: Props) {
               return <Card item={item} isLoading={isLoading} key={i} />;
             })
         ) : (
-          <CardSkeleton changeHotelList={changeHotelList?.length} />
+          <CardSkeleton cards={24} />
         )}
+        {/* <CardSkeleton cards={24} /> */}
       </div>
     </div>
   );

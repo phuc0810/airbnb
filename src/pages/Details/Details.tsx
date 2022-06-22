@@ -30,6 +30,13 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+import TextField from '@mui/material/TextField';
+import { DateRangePicker, DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import Box from '@mui/material/Box';
+
+
 
 type Props = {};
 
@@ -131,7 +138,7 @@ function Details(props: Props) {
             <img
               src="http://picsum.photos/300"
               alt=""
-              style={{ width: "100%", opacity: "0" }}
+              style={{ width: "100%", opacity: "0", display: "none" }}
             />
           </div>
           <div
@@ -147,7 +154,7 @@ function Details(props: Props) {
             <img
               src="http://picsum.photos/300"
               alt=""
-              style={{ width: "100%", opacity: "0" }}
+              style={{ width: "100%", opacity: "0", display: "none" }}
             />
           </div>
         </div>
@@ -264,7 +271,7 @@ function Details(props: Props) {
         <StarIcon className="text-pink-500" />{" "}
         <span className="text-lg font-bold">4,38(18 đánh giá)</span>
         <div className=" grid grid-cols-2 mt-6">
-          {roomIsRated?.slice(0,10).map((item, i) => {
+          {roomIsRated?.slice(0, 10).map((item, i) => {
             return (
               <div className="userComment mb-5" key={i}>
                 <div className="flex justify-start items-center">
@@ -320,7 +327,7 @@ function DatPhong() {
       >
         <div className="flex">
           <div>
-            <Input  placeholder="jello"/>
+            
           </div>
           <div></div>
         </div>

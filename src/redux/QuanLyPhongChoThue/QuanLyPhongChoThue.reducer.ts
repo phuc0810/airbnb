@@ -27,6 +27,7 @@ export const {
     setHotelList: (state, action: PayloadAction<DSHotel[]>) => {
       state.hotelList = action.payload;
       state.changeHotelList = [...state.hotelList];
+      state.isLoading = true;
     },
     setReviewRoom: (state, action: PayloadAction<ReviewRoom | undefined>) => {
       state.reviewRoom = action.payload;

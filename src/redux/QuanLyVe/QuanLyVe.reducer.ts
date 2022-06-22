@@ -5,9 +5,11 @@ interface typeInitialState {
   danhSachViTri?: DanhSachViTri[];
   navList?: NavList[];
   viTri?: ViTri;
+  LoadingMenuBar: boolean;
 }
 
 const initialState: typeInitialState = {
+  LoadingMenuBar: false,
 };
 
 export const { reducer: quanLyVeReducer, actions: quanLyVeAction } =
@@ -20,6 +22,7 @@ export const { reducer: quanLyVeReducer, actions: quanLyVeAction } =
       },
       setNavList: (state, action: PayloadAction<NavList[]>) => {
         state.navList = action.payload;
+        state.LoadingMenuBar = true;
       },
       setViTri: (state, action: PayloadAction<ViTri>) => {
         state.viTri = action.payload;
