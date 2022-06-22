@@ -7,7 +7,8 @@ interface typeInitialState {
   viTri?: ViTri;
 }
 
-const initialState: typeInitialState = {};
+const initialState: typeInitialState = {
+};
 
 export const { reducer: quanLyVeReducer, actions: quanLyVeAction } =
   createSlice({

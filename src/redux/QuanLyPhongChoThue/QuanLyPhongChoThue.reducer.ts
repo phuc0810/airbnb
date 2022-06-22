@@ -1,15 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  hotelList,
+  DSHotel,
   ReviewRoom,
 } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 
 interface typeInitialState {
-  hotelList?: hotelList[];
+  hotelList?: DSHotel[];
   reviewRoom?: ReviewRoom;
+  changeHotelList?: DSHotel[];
+  state?: string;
+  isLoading: boolean;
 }
 
-const initialState: typeInitialState = {};
+const initialState: typeInitialState = {
+  // changeHotelList: [],
+  isLoading: false,
+};
 
 export const {
   reducer: quanLyPhongChoThueReducer,
@@ -18,11 +24,59 @@ export const {
   name: "QuanLyPhongChoThue",
   initialState,
   reducers: {
-    setHotelList: (state, action: PayloadAction<hotelList[]>) => {
+    setHotelList: (state, action: PayloadAction<DSHotel[]>) => {
       state.hotelList = action.payload;
+      state.changeHotelList = [...state.hotelList];
     },
     setReviewRoom: (state, action: PayloadAction<ReviewRoom | undefined>) => {
       state.reviewRoom = action.payload;
+    },
+    changeHotelList: (state, action: PayloadAction<string>) => {
+      state.state = action.payload;
+      if (state.state === "gym") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.gym === true
+        );
+      } else if (state.state === "cableTV") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.cableTV === true
+        );
+      } else if (state.state === "elevator") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.elevator === true
+        );
+      } else if (state.state === "dryer") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.dryer === true
+        );
+      } else if (state.state === "heating") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.heating === true
+        );
+      } else if (state.state === "hotTub") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.hotTub === true
+        );
+      } else if (state.state === "indoorFireplace") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.indoorFireplace === true
+        );
+      } else if (state.state === "kitchen") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.kitchen === true
+        );
+      } else if (state.state === "pool") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.pool === true
+        );
+      } else if (state.state === "wifi") {
+        state.changeHotelList = state.hotelList?.filter(
+          (item) => item.wifi === true
+        );
+      }
+    },
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
 });

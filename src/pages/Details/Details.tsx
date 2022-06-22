@@ -264,7 +264,7 @@ function Details(props: Props) {
         <StarIcon className="text-pink-500" />{" "}
         <span className="text-lg font-bold">4,38(18 đánh giá)</span>
         <div className=" grid grid-cols-2 mt-6">
-          {roomIsRated?.map((item, i) => {
+          {roomIsRated?.slice(0,10).map((item, i) => {
             return (
               <div className="userComment mb-5" key={i}>
                 <div className="flex justify-start items-center">

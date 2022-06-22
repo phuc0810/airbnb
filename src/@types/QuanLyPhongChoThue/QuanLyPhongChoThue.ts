@@ -1,4 +1,4 @@
-export interface hotelList {
+export interface DSHotel {
   deleteAt: boolean;
   _id: string;
   name: string;

@@ -9,6 +9,7 @@ export const getHotelList = createAsyncThunk(
       const result = await quanLyPhongChothue.LayDanhSachPhongChoThue();
       if (result.status === 200) {
         dispatch(quanLyPhongChoThueAction.setHotelList(result.data));
+        await dispatch(quanLyPhongChoThueAction.setIsLoading(true));
       }
     } catch (error) {
       console.log(error);

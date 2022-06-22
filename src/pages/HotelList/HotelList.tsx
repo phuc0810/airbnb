@@ -10,21 +10,30 @@ import { useDispatch } from "react-redux";
 import { RootState } from "../../redux/store/rootReducer";
 import { IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { DanhSachViTri } from "../../@types/QuanLyVe/QuanLyVe";
+import { DanhSachViTri, NavList } from "../../@types/QuanLyVe/QuanLyVe";
 import { useHistory } from "react-router-dom";
-import { useDispatchHotelList } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
-import { hotelList } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
+import {
+  useDispatchHotelList,
+  useQuanLyPhongChoThue,
+} from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
+import { DSHotel } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
+import { quanLyPhongChoThueAction } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.reducer";
+import CardSkeleton from "./CardSkeleton/CardSkeleton";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type Props = {};
 
 function HotelList(props: Props) {
+  let dispatch = useDispatch<any>();
   const { navList } = useDispatchNavList();
   const [state, setState] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   let { viTri } = useSelectorQuanLyVe();
   let { hotelList } = useDispatchHotelList();
-  console.log("hotel list", hotelList);
-  console.log("navList", navList);
+  let { changeHotelList, isLoading } = useQuanLyPhongChoThue();
+  console.log("change list", changeHotelList);
+  console.log(isLoading);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -55,7 +64,12 @@ function HotelList(props: Props) {
                 key={i}
                 disabled={state === item.nameID}
                 className={`${classActiveBtn}`}
-                onClick={() => setState(item.nameID)}
+                onClick={() => {
+                  setState(item.nameID);
+                  dispatch(
+                    quanLyPhongChoThueAction.changeHotelList(item.nameID)
+                  );
+                }}
               >
                 <div className="flex flex-col justify-center items-center">
                   <img
@@ -63,7 +77,7 @@ function HotelList(props: Props) {
                     alt={item.icon}
                     style={{ height: "45px" }}
                   />
-                  <span>{item.name}</span>
+                  <span className="font-bold">{item.name}</span>
                 </div>
               </button>
             </div>
@@ -73,11 +87,15 @@ function HotelList(props: Props) {
       {/* //nguyên cái phần này tạo component riêng dưa qua header, cái list card thì liên quan gì tới cái menu mà nó nằm chugn ở đay v */}
       {/* //* giao diện phòng  */}
       <div className="grid grid-cols-4 mt-10 gap-9">
-        {hotelList
-          ?.filter((item) => item.locationId?.province === viTri?.province)
-          .map((item, i) => {
-            return <Card item={item} key={i} />;
-          })}
+        {isLoading ? (
+          changeHotelList
+            ?.filter((item) => item.locationId?.province === viTri?.province)
+            .map((item, i) => {
+              return <Card item={item} isLoading={isLoading} key={i} />;
+            })
+        ) : (
+          <CardSkeleton changeHotelList={changeHotelList?.length} />
+        )}
       </div>
     </div>
   );
@@ -107,6 +125,8 @@ function Card(props: Card) {
     dryer,
     _id,
   } = props.item;
+  let { isLoading } = props;
+
   let history = useHistory();
   return (
     <div
@@ -189,5 +209,6 @@ function Card(props: Card) {
 }
 
 interface Card {
-  item: hotelList;
+  item: DSHotel;
+  isLoading: boolean;
 }
