@@ -18,6 +18,8 @@ import { useSelectorQuanLyVe } from "../../../redux/QuanLyVe/QuanLyVe.selector";
 type Props = {};
 
 function HeaderDetail(props: Props) {
+  let history = useHistory();
+
   const settings = [
     "Đăng ký",
     "Đăng nhập",
@@ -103,7 +105,16 @@ function HeaderDetail(props: Props) {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <div
+                      className="text-center"
+                      onClick={() => {
+                        if (setting === "Đăng nhập") {
+                          history.push("/dangnhap");
+                        }
+                      }}
+                    >
+                      {setting}
+                    </div>
                   </MenuItem>
                 ))}
               </Menu>

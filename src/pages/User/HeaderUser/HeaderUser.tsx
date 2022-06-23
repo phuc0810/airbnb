@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
 import { BarsOutlined, GlobalOutlined } from "@ant-design/icons";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import SearchIcon from "@mui/icons-material/Search";
 import { NavLink, useHistory } from "react-router-dom";
-import { ComboBox } from "../../Home/Home";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { MenuItem } from "@mui/material";
-import { useSelectorQuanLyVe } from "../../../redux/QuanLyVe/QuanLyVe.selector";
 
 type Props = {};
 
-function HeaderRoomlist(props: Props) {
+function HeaderUser(props: Props) {
   let history = useHistory();
 
   const settings = [
@@ -42,7 +35,7 @@ function HeaderRoomlist(props: Props) {
 
   return (
     <header
-      className="header-roomlist fixed p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
+      className="header-roomlist p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
       style={{ borderBottom: "2px solid #efefef", top: 0 }}
     >
       <div className="container flex justify-between h-16 mx-auto">
@@ -69,10 +62,10 @@ function HeaderRoomlist(props: Props) {
             </svg>
           </NavLink>
         </NavLink>
-        <Search />
+
         <div className="right-headerRoomlist items-center justify-center flex-shrink-0 hidden lg:flex">
           <div>
-            <NavLink to="/trainghiem">Đón tiếp khách</NavLink>
+            <NavLink to="/trainghiem">Trở thành chủ nhà</NavLink>
             <span className="ml-3">
               <GlobalOutlined />
             </span>
@@ -128,47 +121,4 @@ function HeaderRoomlist(props: Props) {
   );
 }
 
-export default HeaderRoomlist;
-
-function Search(props: Props) {
-  let history = useHistory();
-  let { viTri } = useSelectorQuanLyVe();
-
-  return (
-    <div className="bg-transparent p-3 flex justify-center items-center">
-      <div className="mr-5">
-        <ComboBox />
-      </div>
-      <div
-        className="flex flex-col pl-5 mr-5"
-        style={{ borderLeft: "1px solid gray" }}
-      >
-        <TextField
-          id="outlined-basic"
-          label="Thêm ngày"
-          variant="outlined"
-          className="w-44"
-        />
-      </div>
-      <div
-        className="flex flex-col pl-5 mr-5"
-        style={{ borderLeft: "1px solid gray" }}
-      >
-        <TextField
-          id="outlined-basic"
-          label="Thêm khách"
-          variant="outlined"
-          className="w-52"
-        />
-      </div>
-      <button
-        className="p-2 bg-pink-500 rounded-full"
-        onClick={() => {
-          history.push(`/danhsachphong/${viTri?.name}`);
-        }}
-      >
-        <SearchIcon className="text-white" />
-      </button>
-    </div>
-  );
-}
+export default HeaderUser;

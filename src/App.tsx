@@ -9,6 +9,8 @@ import Roomlist from "./pages/Roomlist/Roomlist";
 import Details from "./pages/Details/Details";
 import DetailsTemplate from "./templates/DetailTemplate/DetailTemplate";
 import HotelList from "./pages/HotelList/HotelList";
+import Login from "./pages/Login/Login";
+import User from "./pages/User/User";
 
 function App() {
   return (
@@ -24,6 +26,9 @@ function App() {
         <HomeTemplate path="/danhsachphong/:id" component={Roomlist} />
         <HomeTemplate path="/hotellist/:province" component={HotelList} />
         <DetailsTemplate path="/chitietphong/:id" component={Details} />
+
+        <Route exact path="/dangnhap" component={Login} />
+        <Route exact path="/user" component={User} />
 
         <HomeTemplate path="/" component={Home} />
       </Switch>
