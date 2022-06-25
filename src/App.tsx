@@ -28,7 +28,7 @@ function App() {
         <DetailsTemplate path="/chitietphong/:id" component={Details} />
 
         <Route exact path="/dangnhap" component={Login} />
-        <Route exact path="/user" component={User} />
+        <Route exact path="/user/:id" component={User} />
 
         <HomeTemplate path="/" component={Home} />
       </Switch>

@@ -20,7 +20,9 @@ import { DSHotel } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 import { quanLyPhongChoThueAction } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.reducer";
 import CardSkeleton from "./CardSkeleton/CardSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import SkeletonMui from '@mui/material/Skeleton';
+import ReactPaginate from "react-paginate";
+import { paginateHotelList } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.thunk";
+import PaginationMui from "@mui/material/Pagination";
 
 type Props = {};
 
@@ -50,7 +52,7 @@ function HotelList(props: Props) {
 
   return (
     <div
-      className="Roomlist container max-w-7xl mx-auto relative"
+      className="Roomlist container max-w-7xl mx-auto mt-28"
       style={{ top: "120px" }}
     >
       {/* //!menu bar  */}
@@ -101,6 +103,7 @@ function HotelList(props: Props) {
         )}
         {/* <CardSkeleton cards={24} /> */}
       </div>
+      <PaginationReact />
     </div>
   );
 }
@@ -216,3 +219,42 @@ interface Card {
   item: DSHotel;
   isLoading: boolean;
 }
+
+function PaginationReact(props: PaginationReact) {
+  let dispatch = useDispatch<any>();
+  let handlePageClick = async (data: { selected: number }) => {
+    console.log(data);
+    let soTrang = data.selected + 1;
+    await dispatch(paginateHotelList(soTrang));
+  };
+  return (
+    <div>
+      <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        breakLabel={"..."}
+        pageCount={25}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePageClick}
+        containerClassName={"flex justify-center"}
+        pageClassName={""}
+        pageLinkClassName={
+          "py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        }
+        previousClassName={"page-item"}
+        previousLinkClassName={
+          "py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        }
+        nextClassName={"page-item"}
+        nextLinkClassName={
+          "py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        }
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"bg-rt"}
+      />
+    </div>
+  );
+}
+interface PaginationReact {}

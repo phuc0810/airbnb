@@ -30,3 +30,22 @@ export const getReviewRoom = createAsyncThunk(
     }
   }
 );
+
+export const paginateHotelList = createAsyncThunk(
+  "QuanLyPhongChoThue/paginateHotelList",
+  async (soTrang: any, { dispatch }) => {
+    console.log(soTrang);
+
+    try {
+      const result = await quanLyPhongChothue.DanhSachPhongPhongChoThuePaginate(
+        soTrang
+      );
+      if (result.status === 200) {
+        dispatch(quanLyPhongChoThueAction.changeHotelList(result.data));
+        // await dispatch(quanLyPhongChoThueAction.setIsLoading(true));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);

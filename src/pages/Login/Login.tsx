@@ -69,6 +69,7 @@ export default Login;
 function FormDangNhap() {
   let history = useHistory();
   const dispatch = useDispatch<any>();
+  let { thongTinDangNhap } = useSelectorXacThucNguoiDung();
 
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
@@ -89,18 +90,17 @@ function FormDangNhap() {
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().required("kiểm tra lại tài khoản"),
-      password: Yup.string()
-        .required("kiểm tra lại mật khẩu.")
-        .min(8, "mật khẩu có ít nhất 8 kí tự.")
-        .matches(
-          /[a-zA-Z]/,
-          "phải chứa chữ trong mật khẩu và chỉ chứa chữ latin."
-        ),
+      password: Yup.string().required("kiểm tra lại mật khẩu."),
+      // .min(8, "mật khẩu có ít nhất 8 kí tự.")
+      // .matches(
+      //   /[a-zA-Z]/,
+      //   "phải chứa chữ trong mật khẩu và chỉ chứa chữ latin."
+      // ),
     }),
     onSubmit: (values: { email: string; password: string }) => {
       console.log(values);
       dispatch(postDangNhap(values));
-        // history.goBack();
+      history.push(`/user/${thongTinDangNhap?.user._id}`);
     },
   });
   return (
@@ -178,9 +178,11 @@ function FormDangKy() {
       <input type="text" placeholder="Phone" />
       {/* <input type='' placeholder="Password" /> */}
       <input type="text" placeholder="Địa chỉ" />
-      <Space direction="vertical">
-        <DatePicker onChange={onChange} />
-      </Space>
+      <div>
+        <Space direction="vertical">
+          <DatePicker onChange={onChange} style={{ display: "flex" }} />
+        </Space>
+      </div>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="female"

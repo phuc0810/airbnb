@@ -15,7 +15,7 @@ type Props = {};
 
 function Carousel({}: Props) {
   return (
-    <div>
+    <div style={{width:'100%',background:'black'}}>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
