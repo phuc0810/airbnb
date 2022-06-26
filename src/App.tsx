@@ -24,7 +24,7 @@ function App() {
           component={OnlineExperience}
         />
         <HomeTemplate path="/danhsachphong/:id" component={Roomlist} />
-        <HomeTemplate path="/hotellist/:province" component={HotelList} />
+        <HomeTemplate path="/hotellist/:locationId" component={HotelList} />
         <DetailsTemplate path="/chitietphong/:id" component={Details} />
 
         <Route exact path="/dangnhap" component={Login} />

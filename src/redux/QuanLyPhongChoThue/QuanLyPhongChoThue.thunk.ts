@@ -1,12 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { quanLyPhongChothue } from "../../service/QuanLyPhongChoThue";
+import { RootState } from "../store/rootReducer";
 import { quanLyPhongChoThueAction } from "./QuanLyPhongChoThue.reducer";
 
 export const getHotelList = createAsyncThunk(
   "QuanLyPhongChoThue/getHotelList",
-  async (params, { dispatch }) => {
+  async (params, { dispatch, getState }) => {
+    const state = getState() as RootState;
+    const { page, limit, locationId } = state.quanLyPhongChoThueReducer.filter;
     try {
-      const result = await quanLyPhongChothue.LayDanhSachPhongChoThue();
+      const result = await quanLyPhongChothue.LayDanhSachPhongChoThue(
+        page,
+        limit,
+        locationId
+      );
       if (result.status === 200) {
         dispatch(quanLyPhongChoThueAction.setHotelList(result.data));
         // await dispatch(quanLyPhongChoThueAction.setIsLoading(true));

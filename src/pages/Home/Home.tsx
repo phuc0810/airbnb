@@ -69,7 +69,7 @@ function Home(props: Props) {
         <button
           className="p-2 mt-5 bg-pink-500 rounded-full"
           onClick={() => {
-            history.push(`/danhsachphong/${viTri?.name}`);
+            history.push(`/danhsachphong/${viTri?._id}`);
           }}
         >
           <SearchIcon className="text-white" />

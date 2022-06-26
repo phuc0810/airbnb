@@ -10,11 +10,21 @@ interface typeInitialState {
   changeHotelList?: DSHotel[];
   state?: string;
   isLoading: boolean;
+  filter: {
+    page: number;
+    limit: number;
+    locationId: string;
+  }
 }
 
 const initialState: typeInitialState = {
   // changeHotelList: [],
   isLoading: false,
+  filter: {
+    page: 0,
+    limit: 22,
+    locationId: ''
+  }
 };
 
 export const {
@@ -79,5 +89,9 @@ export const {
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    updateFilter: (state, action: PayloadAction<{key: string, value: any}>) => {
+      const { key, value} = action.payload;
+      state.filter = {...state.filter, [key]: value}
+    }
   },
 });

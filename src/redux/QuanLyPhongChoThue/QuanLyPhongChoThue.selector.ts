@@ -10,12 +10,10 @@ export const useQuanLyPhongChoThue = () =>
 
 export const useDispatchHotelList = () => {
   const dispatch = useDispatch<any>();
-  const { hotelList } = useQuanLyPhongChoThue();
+  const { hotelList, filter } = useQuanLyPhongChoThue();
   useEffect(() => {
-    if (!hotelList) {
-      dispatch(getHotelList());
-    }
-  }, []);
+    dispatch(getHotelList());
+  }, [filter]);
   return { hotelList };
 };
 

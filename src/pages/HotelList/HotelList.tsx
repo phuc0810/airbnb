@@ -11,7 +11,7 @@ import { RootState } from "../../redux/store/rootReducer";
 import { IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { DanhSachViTri, NavList } from "../../@types/QuanLyVe/QuanLyVe";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
   useDispatchHotelList,
   useQuanLyPhongChoThue,
@@ -36,9 +36,21 @@ function HotelList(props: Props) {
   // *danh sach hotel
   let { viTri } = useSelectorQuanLyVe();
   let { hotelList } = useDispatchHotelList();
-  let { changeHotelList, isLoading } = useQuanLyPhongChoThue();
+  let { changeHotelList, isLoading, filter } = useQuanLyPhongChoThue();
   console.log("change list", changeHotelList);
   console.log(isLoading);
+  let { locationId } = useParams<{ locationId: string }>();
+  
+ 
+
+  useEffect(() => {
+    dispatch(
+      quanLyPhongChoThueAction.updateFilter({
+        key: "locationId",
+        value: locationId,
+      })
+    );
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -223,9 +235,13 @@ interface Card {
 function PaginationReact(props: PaginationReact) {
   let dispatch = useDispatch<any>();
   let handlePageClick = async (data: { selected: number }) => {
-    console.log(data);
-    let soTrang = data.selected + 1;
-    await dispatch(paginateHotelList(soTrang));
+    console.log(data.selected);
+    dispatch(
+      quanLyPhongChoThueAction.updateFilter({
+        key: "page",
+        value: data.selected,
+      })
+    );
   };
   return (
     <div>

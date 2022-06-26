@@ -18,7 +18,7 @@ export default function HomeTemplates(props: Props) {
         let header = <Header />;
         if (
           props.path === "/danhsachphong/:id" ||
-          props.path === "/hotellist/:province"
+          props.path === "/hotellist/:locationId"
         ) {
           header = <HeaderRoomlist />;
         }

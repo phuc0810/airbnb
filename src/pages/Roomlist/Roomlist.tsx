@@ -69,7 +69,7 @@ function Roomlist({}: Props) {
       {/* //* giao diện phòng  */}
       <div className="grid grid-cols-4 mt-10 mb-14 gap-9">
         {danhSachViTri
-          ?.filter((item) => item.province === viTri?.province)
+          ?.filter((item) => item._id === viTri?._id)
           .map((item, i) => {
             return <Card item={item} key={i} />;
           })}
@@ -113,38 +113,38 @@ function Card(props: Card) {
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push(`/hotellist/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push(`/hotellist/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push(`/hotellist/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push(`/hotellist/${_id}`);
           }}
         ></SwiperSlide>
         <SwiperSlide
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
-            history.push(`/hotellist/${province}`);
+            history.push(`/hotellist/${_id}`);
           }}
         ></SwiperSlide>
       </Swiper>
       <div
         className="text-black leading-6 w-full mt-3"
         onClick={() => {
-          history.push(`/hotellist/${province}`);
+          history.push(`/hotellist/${_id}`);
         }}
       >
         <div className="flex justify-between items-center">
