@@ -12,6 +12,7 @@ import HotelList from "./pages/HotelList/HotelList";
 import Login from "./pages/Login/Login";
 import User from "./pages/User/User";
 import UserTemplate from "./templates/UserTemplate/UserTemplate";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
         <HomeTemplate path="/hotellist/:locationId" component={HotelList} />
         <DetailsTemplate path="/chitietphong/:id" component={Details} />
 
-        <UserTemplate  path="/dangnhap" component={Login} />
+        <UserTemplate path="/dangnhap" component={Login} />
+        <UserTemplate path="/dangky" component={Register} />
+
         <Route exact path="/user/:id" component={User} />
 
         <HomeTemplate path="/" component={Home} />
