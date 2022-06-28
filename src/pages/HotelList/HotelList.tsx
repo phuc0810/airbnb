@@ -22,7 +22,6 @@ import CardSkeleton from "./CardSkeleton/CardSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ReactPaginate from "react-paginate";
 import { paginateHotelList } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.thunk";
-import PaginationMui from "@mui/material/Pagination";
 
 type Props = {};
 
@@ -40,13 +39,11 @@ function HotelList(props: Props) {
   console.log("change list", changeHotelList);
   console.log(isLoading);
   let { locationId } = useParams<{ locationId: string }>();
-  
- 
 
   useEffect(() => {
     dispatch(
       quanLyPhongChoThueAction.updateFilter({
-        key: "locationId",
+        key: "locationId" || "",
         value: locationId,
       })
     );
@@ -105,11 +102,9 @@ function HotelList(props: Props) {
       {/* //* giao diện phòng  */}
       <div className="grid grid-cols-4 mt-10 gap-9">
         {isLoading ? (
-          changeHotelList
-            ?.filter((item) => item.locationId?.province === viTri?.province)
-            .map((item, i) => {
-              return <Card item={item} isLoading={isLoading} key={i} />;
-            })
+          changeHotelList?.map((item, i) => {
+            return <Card item={item} isLoading={isLoading} key={i} />;
+          })
         ) : (
           <CardSkeleton cards={24} />
         )}
@@ -234,7 +229,7 @@ interface Card {
 
 function PaginationReact(props: PaginationReact) {
   let dispatch = useDispatch<any>();
-  let handlePageClick = async (data: { selected: number }) => {
+  let handlePageClick = (data: { selected: number }) => {
     console.log(data.selected);
     dispatch(
       quanLyPhongChoThueAction.updateFilter({
@@ -254,21 +249,23 @@ function PaginationReact(props: PaginationReact) {
         pageRangeDisplayed={3}
         onPageChange={handlePageClick}
         containerClassName={"flex justify-center"}
-        pageClassName={""}
+        pageClassName={"bg-red-500"}
         pageLinkClassName={
           "py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         }
-        previousClassName={"page-item"}
+        previousClassName={"bg-red-500"}
         previousLinkClassName={
           "py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         }
-        nextClassName={"page-item"}
+        nextClassName={"bg-red-500"}
         nextLinkClassName={
           "py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         }
-        breakClassName={"page-item"}
-        breakLinkClassName={"page-link"}
-        activeClassName={"bg-rt"}
+        breakClassName={"bg-red-500"}
+        breakLinkClassName={
+          "py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        }
+        activeClassName={"bg-red-500"}
       />
     </div>
   );

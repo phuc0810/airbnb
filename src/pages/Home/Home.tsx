@@ -16,6 +16,7 @@ import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { quanLyVeAction } from "../../redux/QuanLyVe/QuanLyVe.reducer";
 import { useHistory } from "react-router-dom";
+import { quanLyPhongChoThueAction } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.reducer";
 
 type Props = {};
 
@@ -283,7 +284,15 @@ export function ComboBox(props: Props) {
   return (
     <Autocomplete
       disablePortal
-      onChange={(_, val) => dispatch(quanLyVeAction.setViTri(val))}
+      onChange={(_, val) => {
+        dispatch(quanLyVeAction.setViTri(val));
+        dispatch(
+          quanLyPhongChoThueAction.updateFilter({
+            key: "locationId",
+            value: val._id,
+          })
+        );
+      }}
       // onInputChange={val => console.log({val})}
       id="ds-vi-tri"
       getOptionLabel={(dsViTri: any) => `${dsViTri.name}`}

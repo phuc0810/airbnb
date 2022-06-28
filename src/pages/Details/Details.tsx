@@ -30,7 +30,9 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import TextField from '@mui/material/TextField';
+import type { DatePickerProps } from "antd";
+import { DatePicker, Space } from "antd";
+
 // date-fns
 
 type Props = {};
@@ -309,6 +311,13 @@ function ImageAvatars(props: imageAvatars) {
 }
 
 function DatPhong() {
+  // datapicker antd
+  const { RangePicker } = DatePicker;
+
+  const dateFormat = "YYYY/MM/DD";
+
+  // !-------------------- gui du lieu di --------------------
+
   const dispatch = useDispatch<any>();
   const formik = useFormik({
     initialValues: {},
@@ -316,17 +325,18 @@ function DatPhong() {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div
-        className="flex flex-col"
-        style={{ borderBottom: "2px solid #dddddd" }}
-      >
-        <div className="flex">
-          <div>
-            
-          </div>
-          <div></div>
+      <div style={{ borderBottom: "2px solid #dddddd" }}>
+        <div>
+          <Space direction="vertical" size={12}>
+            <RangePicker
+              defaultValue={[
+                moment("2015/01/01", dateFormat),
+                moment("2015/01/01", dateFormat),
+              ]}
+              format={dateFormat}
+            />
+          </Space>
         </div>
-        <div></div>
       </div>
     </form>
   );
