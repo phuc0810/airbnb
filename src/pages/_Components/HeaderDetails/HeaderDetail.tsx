@@ -14,11 +14,18 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { MenuItem } from "@mui/material";
 import { useSelectorQuanLyVe } from "../../../redux/QuanLyVe/QuanLyVe.selector";
+import _ from "lodash";
+import { useSelectorXacThucNguoiDung } from "../../../redux/XacThucNguoiDung/XacThucNguoiDung.selector";
+import {
+  ACCESSTOKEN,
+  USER_LOGIN,
+} from "../../../@types/XacThucNguoiDung/XacThucNguoiDung";
 
 type Props = {};
 
 function HeaderDetail(props: Props) {
   let history = useHistory();
+  const { thongTinDangNhap } = useSelectorXacThucNguoiDung();
 
   const settings = [
     "Đăng ký",
@@ -28,6 +35,9 @@ function HeaderDetail(props: Props) {
     "Trải Nghiệm",
     "Trợ giúp",
   ];
+
+  const profile = ["Thông tin cá nhân", "Đăng xuất"];
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -103,20 +113,46 @@ function HeaderDetail(props: Props) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <div
-                      className="text-center"
-                      onClick={() => {
-                        if (setting === "Đăng nhập") {
-                          history.push("/dangnhap");
-                        }
-                      }}
-                    >
-                      {setting}
-                    </div>
-                  </MenuItem>
-                ))}
+                {_.isEmpty(thongTinDangNhap)
+                  ? settings.map((setting) => {
+                      return (
+                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                          <div
+                            className="text-center"
+                            onClick={() => {
+                              if (setting === "Đăng nhập") {
+                                history.push("/dangnhap");
+                              } else if (setting === "Đăng ký") {
+                                history.push("/dangky");
+                              }
+                            }}
+                          >
+                            {setting}
+                          </div>
+                        </MenuItem>
+                      );
+                    })
+                  : profile.map((profile) => {
+                      return (
+                        <MenuItem key={profile} onClick={handleCloseUserMenu}>
+                          <div
+                            className="text-center"
+                            onClick={() => {
+                              if (profile === "Thông tin cá nhân") {
+                                history.push("/user");
+                              } else if (profile === "Đăng xuất") {
+                                localStorage.removeItem(USER_LOGIN);
+                                localStorage.removeItem(ACCESSTOKEN);
+                                history.push("/");
+                                window.location.reload();
+                              }
+                            }}
+                          >
+                            {profile}
+                          </div>
+                        </MenuItem>
+                      );
+                    })}
               </Menu>
             </Box>
           </div>

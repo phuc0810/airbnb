@@ -244,7 +244,7 @@ function PaginationReact(props: PaginationReact) {
         previousLabel={"<"}
         nextLabel={">"}
         breakLabel={"..."}
-        pageCount={25}
+        pageCount={5}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
         onPageChange={handlePageClick}

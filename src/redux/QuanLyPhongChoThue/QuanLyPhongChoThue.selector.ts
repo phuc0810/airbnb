@@ -12,6 +12,7 @@ export const useDispatchHotelList = () => {
   const dispatch = useDispatch<any>();
   const { hotelList, filter } = useQuanLyPhongChoThue();
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getHotelList());
   }, [filter]);
   return { hotelList };
@@ -24,9 +25,9 @@ export const useDispatchReviewRoom = (id: string) => {
     if (!reviewRoom) {
       dispatch(getReviewRoom(id));
     }
-    return()=>{
-      dispatch(quanLyPhongChoThueAction.setReviewRoom(undefined))
-    }
+    return () => {
+      dispatch(quanLyPhongChoThueAction.setReviewRoom(undefined));
+    };
   }, []);
   return { reviewRoom };
 };

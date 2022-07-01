@@ -13,7 +13,7 @@ import { Input } from "antd";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { values } from "lodash";
-import { useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useDispatchLayDanhSachDanhGiaTheoPhong } from "../../redux/QuanLyDanhGia/QuanLyDanhGia.selector";
 import { RoomId } from "../../@types/QuanLyDanhGia/QuanLyDanhGia";
 import moment from "moment";
@@ -32,6 +32,8 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
+import { USER_LOGIN } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
+import { postDatPhong } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.thunk";
 
 // date-fns
 
@@ -313,30 +315,61 @@ function ImageAvatars(props: imageAvatars) {
 function DatPhong() {
   // datapicker antd
   const { RangePicker } = DatePicker;
+  let { id } = useParams<{ id: string }>();
 
-  const dateFormat = "YYYY/MM/DD";
+  const dateFormat = "DD/MM/YYYY";
 
   // !-------------------- gui du lieu di --------------------
 
   const dispatch = useDispatch<any>();
+  const history = useHistory();
+  let onChange = (value: any, dateString: any) => {
+    console.log("Selected Time: ", value);
+    console.log("Formatted Selected Time: ", dateString);
+
+    formik.setFieldValue("checkIn", value[0]._d);
+    formik.setFieldValue("checkOut", value[1]._d);
+  };
+
   const formik = useFormik({
-    initialValues: {},
-    onSubmit: (values) => {},
+    initialValues: {
+      roomId: id,
+      checkIn: "",
+      checkOut: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      dispatch(postDatPhong(values));
+    },
   });
   return (
     <form onSubmit={formik.handleSubmit}>
       <div style={{ borderBottom: "2px solid #dddddd" }}>
         <div>
-          <Space direction="vertical" size={12}>
-            <RangePicker
-              defaultValue={[
-                moment("2015/01/01", dateFormat),
-                moment("2015/01/01", dateFormat),
-              ]}
-              format={dateFormat}
-            />
-          </Space>
+          <RangePicker
+            defaultValue={[
+              moment("20/11/2022", dateFormat),
+              moment("20/11/2022", dateFormat),
+            ]}
+            format={dateFormat}
+            onChange={onChange}
+            onBlur={formik.handleBlur}
+            name="checkIn"
+          />
         </div>
+        <Button
+          className="mt-10"
+          variant="contained"
+          type="submit"
+          style={{ width: "100%" }}
+          onClick={() => {
+            if (!localStorage.getItem(USER_LOGIN)) {
+              history.push("/dangnhap");
+            }
+          }}
+        >
+          Đặt Phòng
+        </Button>
       </div>
     </form>
   );

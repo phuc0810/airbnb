@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   ACCESSTOKEN,
+  ThongTinDangKy,
   ThongTinDangNhap,
   USER_LOGIN,
 } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
@@ -24,9 +25,6 @@ export const {
       state.thongTinDangNhap = action.payload;
       localStorage.setItem(USER_LOGIN, JSON.stringify(state.thongTinDangNhap));
       localStorage.setItem(ACCESSTOKEN, state.thongTinDangNhap.token);
-    },
-    changeAlertLogin: (state, action: PayloadAction<boolean>) => {
-      state.alerLogin = action.payload;
     },
   },
 });

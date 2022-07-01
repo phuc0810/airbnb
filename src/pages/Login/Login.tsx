@@ -27,6 +27,7 @@ function Login({}: Props) {
     onSubmit: (values) => {
       console.log(values);
       dispatch(postDangNhap(values));
+      history.goBack();
     },
   });
   return (
@@ -95,7 +96,12 @@ function Login({}: Props) {
         <div>
           <p>
             Bạn chưa có tài khoản?
-            <span className="text-red-500 cursor-pointer" onClick={()=>{history.push('/dangky')}}>
+            <span
+              className="text-red-500 cursor-pointer"
+              onClick={() => {
+                history.push("/dangky");
+              }}
+            >
               Đăng ký
             </span>
           </p>

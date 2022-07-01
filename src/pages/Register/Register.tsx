@@ -11,24 +11,76 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import moment from "moment";
+import { postDangKy } from "../../redux/XacThucNguoiDung/XacThucNguoiDung.thunk";
+import { ThongTinDangKy } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 
 type Props = {};
 
 function Register(props: Props) {
   const history = useHistory();
   const dispatch = useDispatch<any>();
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
+  const handleOnChangeDate: DatePickerProps["onChange"] = (
+    date,
+    dateString
+  ) => {
+    let birthday = dateString;
+    formik.setFieldValue("birthday", birthday);
+  };
+
+  let handleChangeGender = (name: string) => {
+    return (e: any) => {
+      let boolean = true;
+      const valueRadioBox = e.target.value;
+      if (valueRadioBox === "male") {
+        boolean = true;
+      } else if (valueRadioBox === "female") {
+        boolean = false;
+      }
+      console.log(valueRadioBox);
+      console.log(boolean);
+
+      formik.setFieldValue(name, boolean);
+    };
   };
 
   const formik = useFormik({
-    initialValues: {},
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      birthday: "",
+      gender: false,
+      address: "",
+    },
     validationSchema: Yup.object({
-      email: Yup.string(),
+      email: Yup.string()
+        .email("email không đúng định dạng")
+        .required("kiểm tra lại email"),
+      password: Yup.string()
+        .min(6, "có ít nhất 6 kí tự")
+        .required("kiểm tra lại mật khẩu!"),
+      name: Yup.string().required("không được bỏ trống").min(2, "Tên quá ngắn"),
+      phone: Yup.string()
+        .required("không được bỏ trống")
+        .matches(phoneRegExp, "số điện thoại không hợp lệ"),
+      address: Yup.string().required("không được bỏ trống"),
+      birthday: Yup.date().required("không được bỏ trống"),
     }),
     onSubmit: (values) => {
       console.log(values);
+      // let formData = new FormData();
+      // for (let key in values) {
+      //   const k = key as keyof typeof values;
+      //   formData.append(key, values[k] as any);
+      // }
+      // dispatch(postDangKy(formData as any));
+      dispatch(postDangKy(values));
+      history.goBack();
     },
   });
   return (
@@ -44,9 +96,15 @@ function Register(props: Props) {
             <input
               type="text"
               className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="John"
+              placeholder="Tên"
+              name="name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </div>
+          {formik.errors.name && formik.touched.name && (
+            <p className="text-red-600">{formik.errors.name}</p>
+          )}
         </div>
         {/* //!input sdt */}
         <div className="w-1/2 px-3 mb-5">
@@ -56,11 +114,17 @@ function Register(props: Props) {
               <i className="mdi mdi-account-outline text-gray-400 text-lg" />
             </div>
             <input
-              type="text"
+              type="tel"
               className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="Smith"
+              placeholder="Số điện thoại"
+              name="phone"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </div>
+          {formik.errors.phone && formik.touched.phone && (
+            <p className="text-red-600">{formik.errors.phone}</p>
+          )}
         </div>
       </div>
 
@@ -81,9 +145,9 @@ function Register(props: Props) {
               onBlur={formik.handleBlur}
             />
           </div>
-          {/* {formik.errors.email && formik.touched.email && (
+          {formik.errors.email && formik.touched.email && (
             <p className="text-red-600">{formik.errors.email}</p>
-          )} */}
+          )}
         </div>
       </div>
       {/* //!input password */}
@@ -103,9 +167,9 @@ function Register(props: Props) {
               onBlur={formik.handleBlur}
             />
           </div>
-          {/* {formik.errors.password && formik.touched.password && (
+          {formik.errors.password && formik.touched.password && (
             <p className="text-red-600">{formik.errors.password}</p>
-          )} */}
+          )}
         </div>
       </div>
 
@@ -119,17 +183,17 @@ function Register(props: Props) {
               <i className="mdi mdi-email-outline text-gray-400 text-lg" />
             </div>
             <input
-              type="email"
+              type="text"
               className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="johnsmith@example.com"
-              name="email"
+              placeholder="82 bà huyện thanh quan p9 q3"
+              name="address"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
           </div>
-          {/* {formik.errors.email && formik.touched.email && (
-            <p className="text-red-600">{formik.errors.email}</p>
-          )} */}
+          {formik.errors.address && formik.touched.address && (
+            <p className="text-red-600">{formik.errors.address}</p>
+          )}
         </div>
       </div>
 
@@ -142,11 +206,17 @@ function Register(props: Props) {
             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
               <i className="mdi mdi-email-outline text-gray-400 text-lg" />
             </div>
-            <DatePicker onChange={onChange} />
+            <DatePicker
+              format={"DD/MM/YYYY"}
+              onChange={handleOnChangeDate}
+              onBlur={formik.handleBlur}
+              name="birthday"
+              className="w-2/3 -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white"
+            />
           </div>
-          {/* {formik.errors.email && formik.touched.email && (
-            <p className="text-red-600">{formik.errors.email}</p>
-          )} */}
+          {formik.errors.birthday && formik.touched.birthday && (
+            <p className="text-red-600">{formik.errors.birthday}</p>
+          )}
         </div>
       </div>
 
@@ -169,19 +239,18 @@ function Register(props: Props) {
                 <FormControlLabel
                   value="female"
                   control={<Radio />}
-                  label="Female"
+                  label="Nữ"
+                  onChange={handleChangeGender("gender")}
                 />
                 <FormControlLabel
                   value="male"
                   control={<Radio />}
-                  label="Male"
+                  label="Nam"
+                  onChange={handleChangeGender("gender")}
                 />
               </RadioGroup>
             </FormControl>
           </div>
-          {/* {formik.errors.email && formik.touched.email && (
-            <p className="text-red-600">{formik.errors.email}</p>
-          )} */}
         </div>
       </div>
 
@@ -191,7 +260,7 @@ function Register(props: Props) {
             type="submit"
             className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
           >
-            Đăng Nhập
+            Đăng Ký
           </button>
         </div>
       </div>

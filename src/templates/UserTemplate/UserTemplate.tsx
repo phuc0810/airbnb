@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import { USER_LOGIN } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 

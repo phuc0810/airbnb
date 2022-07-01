@@ -7,7 +7,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import StarIcon from "@mui/icons-material/Star";
 import { USER_LOGIN } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 import { Redirect, useParams } from "react-router-dom";
-import { Form, Formik } from "formik";
+import { Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { postCapNhatHinhDaiDien } from "../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
 import { useDispatchThongTinNguoiDung } from "../../redux/QuanLyNguoiDung/QuanLyNguoiDung.selector";
@@ -17,7 +17,7 @@ type Props = {};
 function User({}: Props) {
   let { id } = useParams<{ id: string }>();
   console.log(id);
-  
+
   let { thongTinNguoiDung } = useDispatchThongTinNguoiDung(id);
   console.log(thongTinNguoiDung);
 
@@ -116,33 +116,32 @@ function UploadAvatar() {
     reader.onload = (e: any) => {
       setImgSrc(e.target?.result);
     };
+    formik.setFieldValue("hinhAnh", file);
   };
 
+  const formik = useFormik({
+    initialValues: {
+      hinhAnh: {},
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      let formData = new FormData();
+      formData.append("File", values.hinhAnh as Blob);
+      dispatch(postCapNhatHinhDaiDien(formData))
+    },
+  });
+
   return (
-    <div>
-      <Formik
-        initialValues={{ imgAvatar: {} }}
-        onSubmit={(values) => {
-          let data = new FormData();
-          data.append("imgAvatar", values.imgAvatar as Blob);
-          console.log(data.get("imgAvatar"));
-          dispatch(postCapNhatHinhDaiDien(data));
-        }}
-      >
-        {(formProps) => (
-          <Form>
-            <Avatar
-              alt="Remy Sharp"
-              src={imgSrc}
-              style={{ width: "100px", height: "100px" }}
-            />
-            <input type="file" onChange={handleChangeFile} />
-            <button type="submit" className="mt-3 underline font-bold">
-              cập nhật hình ảnh
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <form onSubmit={formik.handleSubmit}>
+      <Avatar
+        alt="Remy Sharp"
+        src={imgSrc}
+        style={{ width: "100px", height: "100px" }}
+      />
+      <input type="file" onChange={handleChangeFile} name="hinhAnh" />
+      <button type="submit" className="mt-3 underline font-bold">
+        cập nhật hình ảnh
+      </button>
+    </form>
   );
 }

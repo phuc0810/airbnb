@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { PhongDat } from "../../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 import { quanLyPhongChothue } from "../../service/QuanLyPhongChoThue";
 import { RootState } from "../store/rootReducer";
 import { quanLyPhongChoThueAction } from "./QuanLyPhongChoThue.reducer";
@@ -50,6 +51,20 @@ export const paginateHotelList = createAsyncThunk(
       if (result.status === 200) {
         dispatch(quanLyPhongChoThueAction.changeHotelList(result.data));
         // await dispatch(quanLyPhongChoThueAction.setIsLoading(true));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const postDatPhong = createAsyncThunk(
+  "QuanLyPhongChoThue/postDatPhong",
+  async (phongDat: PhongDat, { dispatch }) => {
+    try {
+      const result = await quanLyPhongChothue.DatPhong(phongDat);
+      if (result.status === 200) {
+        alert('đặt phòng thành công')
       }
     } catch (error) {
       console.log(error);

@@ -1,3 +1,4 @@
+import { PhongDat } from "../@types/QuanLyPhongChoThue/QuanLyPhongChoThue";
 import { http } from "../util/setting/config";
 
 export class QuanLyPhongChoThue {
@@ -10,6 +11,9 @@ export class QuanLyPhongChoThue {
   DanhSachPhongPhongChoThuePaginate = (soTrang: any) => {
     return http.get(`/api/rooms?skip=${soTrang * 22}&limit=22`);
   };
+  DatPhong=(phongDat:PhongDat)=>{
+    return http.post('/api/rooms/booking',phongDat)
+  }
 }
 
 export const quanLyPhongChothue = new QuanLyPhongChoThue();

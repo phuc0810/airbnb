@@ -1,7 +1,7 @@
 import { http } from "../util/setting/config";
 
 export class QuanLyNguoiDung {
-  CapNhatAnhDaiDien = (data: { img?: {} }) => {
+  CapNhatAnhDaiDien = (data:any) => {
     return http.post("/api/users/upload-avatar", data);
   };
   LayThongTinChiTietNguoiDung = (id: string) => {

@@ -58,3 +58,8 @@ export interface ReviewRoom {
   __v: number;
   image: string;
 }
+export interface PhongDat {
+  roomId: string;
+  checkIn: string;
+  checkOut: string;
+}
