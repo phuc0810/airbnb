@@ -13,3 +13,4 @@ export interface ThongTinNguoiDung {
   birthday: string;
   gender: boolean;
 }
+

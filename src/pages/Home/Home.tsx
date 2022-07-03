@@ -25,7 +25,7 @@ function Home(props: Props) {
   let { viTri } = useSelectorQuanLyVe();
 
   return (
-    <div className="container relative">
+    <div className="container relative" style={{ maxWidth: "100%" }}>
       <div className="search bg-white p-3 flex justify-center items-center">
         <div className="mr-5">
           <span className="font-bold pb-1">Đia điểm</span>

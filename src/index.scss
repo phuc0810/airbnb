@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~antd/dist/antd.css';
 @import "./assets/scss/pages/Home/Accommodation/Accommodation.scss";
 @import "./assets/scss/components/Footer/Footer.scss";
 @import "./assets/scss/themes/Swiper.scss";

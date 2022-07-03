@@ -114,7 +114,7 @@ function HeaderRoomlist(props: Props) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {_.isEmpty(thongTinDangNhap)
+                {_.isEmpty(localStorage.getItem(USER_LOGIN))
                   ? settings.map((setting) => {
                       return (
                         <MenuItem key={setting} onClick={handleCloseUserMenu}>
@@ -140,7 +140,9 @@ function HeaderRoomlist(props: Props) {
                             className="text-center"
                             onClick={() => {
                               if (profile === "Thông tin cá nhân") {
-                                history.push("/user");
+                                history.push(
+                                  `/user/${thongTinDangNhap?.user._id}`
+                                );
                               } else if (profile === "Đăng xuất") {
                                 localStorage.removeItem(USER_LOGIN);
                                 localStorage.removeItem(ACCESSTOKEN);

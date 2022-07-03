@@ -26,6 +26,7 @@ type Props = {};
 function HeaderDetail(props: Props) {
   let history = useHistory();
   const { thongTinDangNhap } = useSelectorXacThucNguoiDung();
+  console.log(thongTinDangNhap);
 
   const settings = [
     "Đăng ký",
@@ -139,7 +140,9 @@ function HeaderDetail(props: Props) {
                             className="text-center"
                             onClick={() => {
                               if (profile === "Thông tin cá nhân") {
-                                history.push("/user");
+                                history.push(
+                                  `/user/${thongTinDangNhap?.user._id}`
+                                );
                               } else if (profile === "Đăng xuất") {
                                 localStorage.removeItem(USER_LOGIN);
                                 localStorage.removeItem(ACCESSTOKEN);

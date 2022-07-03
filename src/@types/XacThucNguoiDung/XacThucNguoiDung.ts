@@ -28,3 +28,18 @@ export interface ThongTinDangKy {
   gender: boolean;
   address: string;
 }
+export interface User {
+  address?: string;
+  avatar?: string;
+  birthday?: string;
+  deleteAt?: boolean;
+  email?: string;
+  gender?: boolean;
+  name?: string;
+  password?: string;
+  phone?: string;
+  tickets?: string[];
+  type?: string;
+  __v?: number;
+  _id?: string;
+}

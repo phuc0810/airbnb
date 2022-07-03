@@ -5,21 +5,24 @@ import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import Button from "@mui/material/Button";
 import CheckIcon from "@mui/icons-material/Check";
 import StarIcon from "@mui/icons-material/Star";
-import { USER_LOGIN } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
+import {
+  ThongTinDangNhap,
+  USER_LOGIN,
+} from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { postCapNhatHinhDaiDien } from "../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
-import { useDispatchThongTinNguoiDung } from "../../redux/QuanLyNguoiDung/QuanLyNguoiDung.selector";
+import { useSelectorXacThucNguoiDung } from "../../redux/XacThucNguoiDung/XacThucNguoiDung.selector";
 
 type Props = {};
 
-function User({}: Props) {
+function User(props: Props) {
   let { id } = useParams<{ id: string }>();
   console.log(id);
 
-  let { thongTinNguoiDung } = useDispatchThongTinNguoiDung(id);
-  console.log(thongTinNguoiDung);
+  let { thongTinDangNhap } = useSelectorXacThucNguoiDung();
+  console.log(thongTinDangNhap);
 
   return (
     <div>
@@ -36,7 +39,7 @@ function User({}: Props) {
             <div className="item p-5">
               {/* img anh dai dien */}
               <div className="flex flex-col justify-center items-center">
-                <UploadAvatar />
+                <UploadAvatar thongTinDangNhap={thongTinDangNhap} />
               </div>
               <div className="content flex flex-col mt-6">
                 <VerifiedUserIcon />
@@ -66,7 +69,7 @@ function User({}: Props) {
                   }}
                 />
                 <span className="text-xl font-bold">
-                  ten người dùng đã xác nhận{" "}
+                  {thongTinDangNhap?.user.name} đã xác nhận{" "}
                 </span>
                 <span className="mt-5 mb-6">
                   {" "}
@@ -78,7 +81,9 @@ function User({}: Props) {
           {/* -------------------- */}
           <div style={{ width: "70%" }}>
             <div className="ml-10 flex flex-col">
-              <h1 className="font-bold text-2xl">Xin chào tôi là tên user</h1>
+              <h1 className="font-bold text-2xl">
+                Xin chào tôi là {thongTinDangNhap?.user.name}
+              </h1>
               <span className="text-gray-400 my-4">
                 bắt đầu tham gia vào 2022
               </span>
@@ -105,9 +110,10 @@ function User({}: Props) {
 
 export default User;
 
-function UploadAvatar() {
+function UploadAvatar(props: UploadAvatar) {
+  let avatar = props.thongTinDangNhap?.user.avatar;
   let dispatch = useDispatch<any>();
-  let [imgSrc, setImgSrc] = useState("");
+  let [imgSrc, setImgSrc] = useState(`${avatar}`);
 
   let handleChangeFile = (e: any) => {
     let file = e.target.files[0];
@@ -116,18 +122,19 @@ function UploadAvatar() {
     reader.onload = (e: any) => {
       setImgSrc(e.target?.result);
     };
-    formik.setFieldValue("hinhAnh", file);
+    formik.setFieldValue("avatar", file);
   };
 
   const formik = useFormik({
     initialValues: {
-      hinhAnh: {},
+      avatar: "",
     },
     onSubmit: (values) => {
-      console.log(values);
       let formData = new FormData();
-      formData.append("File", values.hinhAnh as Blob);
-      dispatch(postCapNhatHinhDaiDien(formData))
+      formData.append("avatar", values.avatar as string);
+      console.log("avatar", formData.get("avatar"));
+
+      dispatch(postCapNhatHinhDaiDien(formData));
     },
   });
 
@@ -138,10 +145,14 @@ function UploadAvatar() {
         src={imgSrc}
         style={{ width: "100px", height: "100px" }}
       />
-      <input type="file" onChange={handleChangeFile} name="hinhAnh" />
+      <input type="file" onChange={handleChangeFile} name="avatar" />
       <button type="submit" className="mt-3 underline font-bold">
         cập nhật hình ảnh
       </button>
     </form>
   );
+}
+
+interface UploadAvatar {
+  thongTinDangNhap?: ThongTinDangNhap;
 }
