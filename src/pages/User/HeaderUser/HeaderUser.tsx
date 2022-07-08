@@ -7,11 +7,17 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import { MenuItem } from "@mui/material";
+import _ from "lodash";
+import { USER_LOGIN } from "../../../@types/XacThucNguoiDung/XacThucNguoiDung";
 
 type Props = {};
 
 function HeaderUser(props: Props) {
   let history = useHistory();
+  enum ProfileEnum {
+    INFO = "INFO",
+    LOG_OUT = "LOG_OUT",
+  }
 
   const settings = [
     "Đăng ký",
@@ -21,6 +27,30 @@ function HeaderUser(props: Props) {
     "Trải Nghiệm",
     "Trợ giúp",
   ];
+
+  const profileOptions = [
+    {
+      key: ProfileEnum.INFO,
+      label: "Thông tin cá nhân",
+      onClick: () => {
+        history.push("/user");
+      },
+    },
+    {
+      key: ProfileEnum.LOG_OUT,
+      label: "Đăng xuất",
+      onClick: () => {
+        console.log("-------------logging out---------");
+
+        // localStorage.removeItem(USER_LOGIN);
+        // localStorage.removeItem(ACCESSTOKEN);
+        localStorage.clear();
+        // window.location.reload();
+        history.push("/home");
+      },
+    },
+  ];
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -96,22 +126,40 @@ function HeaderUser(props: Props) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => {
-                  return (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <div
-                        className="text-center"
-                        onClick={() => {
-                          if (setting === "Đăng nhập") {
-                            history.push("/dangnhap");
-                          }
-                        }}
-                      >
-                        {setting}
-                      </div>
-                    </MenuItem>
-                  );
-                })}
+               {_.isEmpty(localStorage.getItem(USER_LOGIN))
+                  ? settings.map((setting) => {
+                      return (
+                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                          <div
+                            className="text-center"
+                            onClick={() => {
+                              if (setting === "Đăng nhập") {
+                                history.push("/dangnhap");
+                              } else if (setting === "Đăng ký") {
+                                history.push("/dangky");
+                              }
+                            }}
+                          >
+                            {setting}
+                          </div>
+                        </MenuItem>
+                      );
+                    })
+                  : profileOptions.map((profile) => {
+                      return (
+                        <MenuItem
+                          key={profile.key}
+                          onClick={handleCloseUserMenu}
+                        >
+                          <Box
+                            className="text-center"
+                            onClick={profile.onClick}
+                          >
+                            {profile.label}
+                          </Box>
+                        </MenuItem>
+                      );
+                    })}
               </Menu>
             </Box>
           </div>

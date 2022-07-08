@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { BarsOutlined, GlobalOutlined } from "@ant-design/icons";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TextField from "@mui/material/TextField";
@@ -23,10 +23,14 @@ import {
 
 type Props = {};
 
+enum ProfileEnum {
+  INFO = "INFO",
+  LOG_OUT = "LOG_OUT",
+}
+
 function HeaderDetail(props: Props) {
   let history = useHistory();
-  const { thongTinDangNhap } = useSelectorXacThucNguoiDung();
-  console.log(thongTinDangNhap);
+  const { userLogin } = useSelectorXacThucNguoiDung();
 
   const settings = [
     "Đăng ký",
@@ -37,7 +41,28 @@ function HeaderDetail(props: Props) {
     "Trợ giúp",
   ];
 
-  const profile = ["Thông tin cá nhân", "Đăng xuất"];
+  const profileOptions = [
+    {
+      key: ProfileEnum.INFO,
+      label: "Thông tin cá nhân",
+      onClick: () => {
+        history.push("/user");
+      },
+    },
+    {
+      key: ProfileEnum.LOG_OUT,
+      label: "Đăng xuất nè",
+      onClick: () => {
+        console.log("-------------logging out---------");
+
+        // localStorage.removeItem(USER_LOGIN);
+        // localStorage.removeItem(ACCESSTOKEN);
+        localStorage.clear();
+        // window.location.reload();
+        history.push("/home");
+      },
+    },
+  ];
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -114,7 +139,7 @@ function HeaderDetail(props: Props) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {_.isEmpty(thongTinDangNhap)
+                {_.isEmpty(localStorage.getItem(USER_LOGIN))
                   ? settings.map((setting) => {
                       return (
                         <MenuItem key={setting} onClick={handleCloseUserMenu}>
@@ -133,30 +158,22 @@ function HeaderDetail(props: Props) {
                         </MenuItem>
                       );
                     })
-                  : profile.map((profile) => {
+                  : profileOptions.map((profile) => {
                       return (
-                        <MenuItem key={profile} onClick={handleCloseUserMenu}>
-                          <div
+                        <MenuItem
+                          key={profile.key}
+                          onClick={handleCloseUserMenu}
+                        >
+                          <Box
                             className="text-center"
-                            onClick={() => {
-                              if (profile === "Thông tin cá nhân") {
-                                history.push(
-                                  `/user/${thongTinDangNhap?.user._id}`
-                                );
-                              } else if (profile === "Đăng xuất") {
-                                localStorage.removeItem(USER_LOGIN);
-                                localStorage.removeItem(ACCESSTOKEN);
-                                history.push("/");
-                                window.location.reload();
-                              }
-                            }}
+                            onClick={profile.onClick}
                           >
-                            {profile}
-                          </div>
+                            {profile.label}
+                          </Box>
                         </MenuItem>
                       );
                     })}
-              </Menu>
+              </Menu> 
             </Box>
           </div>
         </div>
@@ -165,7 +182,7 @@ function HeaderDetail(props: Props) {
   );
 }
 
-export default HeaderDetail;
+export default memo(HeaderDetail);
 
 function Search(props: Props) {
   let history = useHistory();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderUser from "./HeaderUser/HeaderUser";
 import Avatar from "@mui/material/Avatar";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
@@ -7,6 +7,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import StarIcon from "@mui/icons-material/Star";
 import {
   ThongTinDangNhap,
+  UserInfo,
   USER_LOGIN,
 } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 import { Redirect, useParams } from "react-router-dom";
@@ -14,15 +15,14 @@ import { Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { postCapNhatHinhDaiDien } from "../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
 import { useSelectorXacThucNguoiDung } from "../../redux/XacThucNguoiDung/XacThucNguoiDung.selector";
+import { postDangNhap } from "../../redux/XacThucNguoiDung/XacThucNguoiDung.thunk";
 
 type Props = {};
 
 function User(props: Props) {
-  let { id } = useParams<{ id: string }>();
-  console.log(id);
-
-  let { thongTinDangNhap } = useSelectorXacThucNguoiDung();
-  console.log(thongTinDangNhap);
+  let { userLogin, imgAvatar } = useSelectorXacThucNguoiDung();
+  console.log(imgAvatar);
+  console.log(userLogin);
 
   return (
     <div>
@@ -39,7 +39,7 @@ function User(props: Props) {
             <div className="item p-5">
               {/* img anh dai dien */}
               <div className="flex flex-col justify-center items-center">
-                <UploadAvatar thongTinDangNhap={thongTinDangNhap} />
+                <UploadAvatar userLogin={userLogin} />
               </div>
               <div className="content flex flex-col mt-6">
                 <VerifiedUserIcon />
@@ -69,7 +69,7 @@ function User(props: Props) {
                   }}
                 />
                 <span className="text-xl font-bold">
-                  {thongTinDangNhap?.user.name} đã xác nhận{" "}
+                  {userLogin?.name} đã xác nhận{" "}
                 </span>
                 <span className="mt-5 mb-6">
                   {" "}
@@ -82,7 +82,7 @@ function User(props: Props) {
           <div style={{ width: "70%" }}>
             <div className="ml-10 flex flex-col">
               <h1 className="font-bold text-2xl">
-                Xin chào tôi là {thongTinDangNhap?.user.name}
+                Xin chào tôi là {userLogin?.name}
               </h1>
               <span className="text-gray-400 my-4">
                 bắt đầu tham gia vào 2022
@@ -111,7 +111,7 @@ function User(props: Props) {
 export default User;
 
 function UploadAvatar(props: UploadAvatar) {
-  let avatar = props.thongTinDangNhap?.user.avatar;
+  let avatar = props.userLogin?.avatar;
   let dispatch = useDispatch<any>();
   let [imgSrc, setImgSrc] = useState(`${avatar}`);
 
@@ -127,12 +127,17 @@ function UploadAvatar(props: UploadAvatar) {
 
   const formik = useFormik({
     initialValues: {
-      avatar: "",
+      avatar: {
+        name: "",
+        size: null,
+        type: "",
+      },
     },
     onSubmit: (values) => {
       let formData = new FormData();
-      formData.append("avatar", values.avatar as string);
-      console.log("avatar", formData.get("avatar"));
+      formData.append("avatar", values.avatar as any, values.avatar.name);
+
+      console.log("formdata", formData.get("avatar"));
 
       dispatch(postCapNhatHinhDaiDien(formData));
     },
@@ -145,7 +150,7 @@ function UploadAvatar(props: UploadAvatar) {
         src={imgSrc}
         style={{ width: "100px", height: "100px" }}
       />
-      <input type="file" onChange={handleChangeFile} name="avatar" />
+      <input type="file" onChange={handleChangeFile} />
       <button type="submit" className="mt-3 underline font-bold">
         cập nhật hình ảnh
       </button>
@@ -154,5 +159,5 @@ function UploadAvatar(props: UploadAvatar) {
 }
 
 interface UploadAvatar {
-  thongTinDangNhap?: ThongTinDangNhap;
+  userLogin?: UserInfo;
 }

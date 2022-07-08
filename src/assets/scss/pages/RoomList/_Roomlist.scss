@@ -25,3 +25,22 @@
   border-bottom: 2px solid #030303 !important;
   color: black !important;
 }
+
+// Reponsive
+
+@include MediaQuery($md) {
+  .Roomlist {
+    .roomList-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+
+@include MediaQuery($xs) {
+  .Roomlist {
+    .roomList-grid {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+}

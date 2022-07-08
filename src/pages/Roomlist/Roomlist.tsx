@@ -67,7 +67,7 @@ function Roomlist({}: Props) {
       </div> */}
       {/* //nguyên cái phần này tạo component riêng dưa qua header, cái list card thì liên quan gì tới cái menu mà nó nằm chugn ở đay v */}
       {/* //* giao diện phòng  */}
-      <div className="grid grid-cols-4 mt-10 mb-14 gap-9">
+      <div className="roomList-grid grid grid-cols-4 mt-10 mb-14 gap-9">
         {danhSachViTri
           ?.filter((item) => item._id === viTri?._id)
           .map((item, i) => {

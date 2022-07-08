@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ThongTinNguoiDung } from "../../@types/QuanLyNguoiDung/QuanLyNguoiDung";
 
 interface typeInitialState {
-  imgAvatar?: any;
+  Avatar?: any;
   thongTinNguoiDung?: ThongTinNguoiDung;
 }
 
@@ -16,7 +16,7 @@ export const {
   initialState,
   reducers: {
     setAvatar: (state, action: PayloadAction<any>) => {
-      state.imgAvatar = action.payload;
+      state.Avatar = action.payload;
     },
     setThongTinNguoiDung: (state, action: PayloadAction<ThongTinNguoiDung>) => {
       state.thongTinNguoiDung = action.payload;

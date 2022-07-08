@@ -1,4 +1,10 @@
-import React, { Fragment } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import StarIcon from "@mui/icons-material/Star";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import IosShareIcon from "@mui/icons-material/IosShare";
@@ -44,9 +50,17 @@ function Details(props: Props) {
   let { id } = useParams<{ id: string }>();
   let { roomIsRated } = useDispatchLayDanhSachDanhGiaTheoPhong(id);
   let { reviewRoom } = useDispatchReviewRoom(id);
-  console.log(id);
+  const ref = useRef<HTMLDivElement>(null);
 
-  console.log(reviewRoom);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        ref.current?.classList.add("scroll");
+      } else {
+        ref.current?.classList.remove("scroll");
+      }
+    });
+  }, []);
 
   return (
     <div className="details container max-w-7xl mx-auto">
@@ -243,25 +257,31 @@ function Details(props: Props) {
         {/* ------------------------ */}
         <div className="right mt-10" style={{ width: "40%" }}>
           <div
+            className="datphong"
             style={{
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
               borderRadius: "10px",
             }}
+            ref={ref}
           >
             <div className="p-5">
               <div className="flex justify-between items-center">
                 <div>
-                  <span className="font-bold text-xl">$44</span>/đêm
+                  <span className="font-bold text-xl">
+                    {reviewRoom?.price.toLocaleString()} VNĐ
+                  </span>
+                  /đêm
                 </div>
                 <div>
                   <StarIcon
                     className="text-pink-500"
                     style={{ fontSize: "15px" }}
                   />
-                  4,38 <span className="underline">(18 đánh giá)</span>
+                  {reviewRoom?.locationId?.valueate}{" "}
+                  <span className="underline">(18 đánh giá)</span>
                 </div>
               </div>
-              <DatPhong />
+              <DatPhong price={reviewRoom?.price} />
             </div>
           </div>
         </div>
@@ -312,7 +332,7 @@ function ImageAvatars(props: imageAvatars) {
   );
 }
 
-function DatPhong() {
+function DatPhong(props: DatPhong) {
   // datapicker antd
   const { RangePicker } = DatePicker;
   let { id } = useParams<{ id: string }>();
@@ -323,12 +343,19 @@ function DatPhong() {
 
   const dispatch = useDispatch<any>();
   const history = useHistory();
+  let diff = 0;
+
   let onChange = (value: any, dateString: any) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
+    formik.setFieldValue("checkIn", value[0].toISOString());
+    formik.setFieldValue("checkOut", value[1].toISOString());
+    diff = value[1].diff(value[0], "d");
+    let totalPrice = diff * (props.price * 1);
+  };
 
-    formik.setFieldValue("checkIn", value[0]._d);
-    formik.setFieldValue("checkOut", value[1]._d);
+  let toltalPrice = () => {
+    // return totalDay * ;
   };
 
   const formik = useFormik({
@@ -345,18 +372,20 @@ function DatPhong() {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div style={{ borderBottom: "2px solid #dddddd" }}>
-        <div>
+        <div className="text-center">
           <RangePicker
             defaultValue={[
-              moment("20/11/2022", dateFormat),
-              moment("20/11/2022", dateFormat),
+              moment("1/7/2022", dateFormat),
+              moment("1/7/2022", dateFormat),
             ]}
             format={dateFormat}
             onChange={onChange}
             onBlur={formik.handleBlur}
-            name="checkIn"
+            name="date"
           />
+          <br />
         </div>
+        <span>Tổng tiền: {toltalPrice}</span>
         <Button
           className="mt-10"
           variant="contained"
@@ -373,6 +402,10 @@ function DatPhong() {
       </div>
     </form>
   );
+}
+
+interface DatPhong {
+  price?: number;
 }
 
 // diablog

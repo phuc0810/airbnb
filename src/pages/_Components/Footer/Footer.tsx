@@ -115,7 +115,7 @@ function Footer(props: Props) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between px-6 text-sm border-t-2 mt-12 pt-8 text-white ">
+      <div className="end-footer flex items-center justify-between px-6 text-sm border-t-2 mt-12 pt-8 text-white ">
         <div>
           <span>© Copyright 1986. All Rights Reserved.</span> .{" "}
           <span>Quyền riêng tư</span> .<span>Điều khoản</span> .

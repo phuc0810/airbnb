@@ -3,17 +3,24 @@ import { useHistory } from "react-router-dom";
 import { xacThucNguoiDungService } from "../../service/XacThucNguoiDungService";
 import { xacThucNguoiDungAction } from "./XacThucNguoiDung.reducer";
 
+interface LogInargs {
+  values: { email: string; password: string };
+  onSuccessCallback: () => void;
+  onFailureCallback: () => void;
+}
 export const postDangNhap = createAsyncThunk(
   "XacThucNguoiDung/postDangNhap",
-  async (values: { email: string; password: string }, { dispatch }) => {
+  async (args: LogInargs, { dispatch }) => {
     try {
-      const result = await xacThucNguoiDungService.DangNhap(values);
+      const result = await xacThucNguoiDungService.DangNhap(args.values);
       console.log(result);
       if (result.status === 200) {
         dispatch(xacThucNguoiDungAction.setThongTinDangNhap(result.data));
+        args.onSuccessCallback();
       }
     } catch (error) {
       console.log(error);
+      args.onFailureCallback();
     }
   }
 );

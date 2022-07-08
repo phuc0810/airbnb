@@ -69,7 +69,11 @@ function Register(props: Props) {
         .required("không được bỏ trống")
         .matches(phoneRegExp, "số điện thoại không hợp lệ"),
       address: Yup.string().required("không được bỏ trống"),
-      birthday: Yup.date().required("không được bỏ trống"),
+      birthday: Yup.string()
+        .required("không được bỏ trống")
+        .test("DOB", "Please choose a valid date of birth", (value) => {
+          return moment().diff(moment(value), "years") >= 10;
+        }),
     }),
     onSubmit: (values) => {
       console.log(values);

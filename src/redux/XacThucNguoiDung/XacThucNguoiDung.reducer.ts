@@ -3,7 +3,7 @@ import {
   ACCESSTOKEN,
   ThongTinDangKy,
   ThongTinDangNhap,
-  User,
+  UserInfo,
   USER_LOGIN,
 } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 
@@ -15,7 +15,8 @@ if (localStorage.getItem(USER_LOGIN)) {
 interface typeInitialState {
   thongTinDangNhap?: ThongTinDangNhap;
   alerLogin: boolean;
-  userLogin?: User;
+  userLogin?: UserInfo;
+  imgAvatar?: string;
 }
 
 const initialState: typeInitialState = {
@@ -31,8 +32,14 @@ export const {
   reducers: {
     setThongTinDangNhap: (state, action: PayloadAction<ThongTinDangNhap>) => {
       state.thongTinDangNhap = action.payload;
+      state.userLogin = action.payload.user;
+      state.imgAvatar = state.userLogin.avatar;
       localStorage.setItem(USER_LOGIN, JSON.stringify(action.payload.user));
       localStorage.setItem(ACCESSTOKEN, action.payload.token);
+    },
+    reloadAvatar: (state, action: PayloadAction<string>) => {
+      state.imgAvatar = action.payload;
+      localStorage.setItem(USER_LOGIN, JSON.stringify(action.payload));
     },
   },
 });

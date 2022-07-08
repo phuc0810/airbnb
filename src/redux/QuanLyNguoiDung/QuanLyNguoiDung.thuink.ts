@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { quanLyNguoiDungService } from "../../service/QuanLyNguoiDungService";
+import { xacThucNguoiDungAction } from "../XacThucNguoiDung/XacThucNguoiDung.reducer";
 import { quanLyNguoiDungAction } from "./QuanLyNguoiDung.reducer";
 
 export const postCapNhatHinhDaiDien = createAsyncThunk(
@@ -8,7 +9,8 @@ export const postCapNhatHinhDaiDien = createAsyncThunk(
     try {
       const result = await quanLyNguoiDungService.CapNhatAnhDaiDien(data);
       if (result.status === 200) {
-        dispatch(quanLyNguoiDungAction.setAvatar(result.data));
+        // dispatch(quanLyNguoiDungAction.setAvatar(result.data.avatar));
+        dispatch(xacThucNguoiDungAction.reloadAvatar(result.data))
       }
     } catch (error) {
       console.log(error);

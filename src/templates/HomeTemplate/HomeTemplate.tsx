@@ -23,7 +23,7 @@ export default function HomeTemplates(props: Props) {
           header = <HeaderRoomlist />;
         }
         return (
-          <div>
+          <div className="home-template">
             {header}
             <props.component {...propsRoute} />
             <hr className="mt-5" />

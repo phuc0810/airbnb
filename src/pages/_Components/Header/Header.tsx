@@ -11,7 +11,7 @@ type Props = {};
 
 function Header(props: Props) {
   return (
-    <header className="p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-black text-white w-full z-10 ">
+    <header className="header-homeTemplate p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-black text-white w-full z-10 ">
       <div className="container flex justify-between h-16 mx-auto">
         <NavLink
           rel="noopener noreferrer"

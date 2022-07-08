@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { values } from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
@@ -9,8 +9,15 @@ import { postDangNhap } from "../../redux/XacThucNguoiDung/XacThucNguoiDung.thun
 type Props = {};
 
 function Login({}: Props) {
+  const [isLoggedInFailed, setIsLoggedInFailed] = useState<boolean>(false);
   const history = useHistory();
   const dispatch = useDispatch<any>();
+  const onSuccessCallback = () => {
+    history.goBack();
+  };
+  const onFailureCallback = () => {
+    setIsLoggedInFailed(true);
+  };
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -26,8 +33,12 @@ function Login({}: Props) {
     }),
     onSubmit: (values) => {
       console.log(values);
-      dispatch(postDangNhap(values));
-      history.goBack();
+      const payload = {
+        values,
+        onSuccessCallback,
+        onFailureCallback,
+      };
+      dispatch(postDangNhap(payload));
     },
   });
   return (
@@ -74,6 +85,9 @@ function Login({}: Props) {
           </div>
           {formik.errors.password && formik.touched.password && (
             <p className="text-red-600">{formik.errors.password}</p>
+          )}
+          {isLoggedInFailed && (
+            <div className="text-red-500">Đăng nhập không thành công</div>
           )}
         </div>
       </div>

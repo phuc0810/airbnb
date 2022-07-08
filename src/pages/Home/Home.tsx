@@ -25,7 +25,7 @@ function Home(props: Props) {
   let { viTri } = useSelectorQuanLyVe();
 
   return (
-    <div className="container relative" style={{ maxWidth: "100%" }}>
+    <div className="body-home container relative">
       <div className="search bg-white p-3 flex justify-center items-center">
         <div className="mr-5">
           <span className="font-bold pb-1">Đia điểm</span>
@@ -101,8 +101,8 @@ function Suggestions(props: Props) {
         Khám phá những điểm đến gần đây
       </h1>
       {/* khám phá những điểm đến gần đây */}
-      <div className="grid grid-cols-4 gap-8 max-w-7xl m-auto">
-        <div className="flex justify-start items-center">
+      <div className="suggestion-grid grid grid-cols-4 gap-8 max-w-7xl m-auto">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/tphcm.jpg"
             width={80}
@@ -115,7 +115,7 @@ function Suggestions(props: Props) {
             <span>15p lái xe</span>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/cantho.jpg"
             width={80}
@@ -128,7 +128,7 @@ function Suggestions(props: Props) {
             <span>3 giờ lái xe</span>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/nhatrang.jpg"
             width={80}
@@ -141,7 +141,7 @@ function Suggestions(props: Props) {
             <span>6.5 giờ lái xe</span>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/phuquoc.jpg"
             width={80}
@@ -153,7 +153,7 @@ function Suggestions(props: Props) {
             <h3 className="font-bold">Phú Quốc</h3>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/tuyhoa.jpg"
             width={80}
@@ -166,7 +166,7 @@ function Suggestions(props: Props) {
             <span>7.5 giờ lái xe</span>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/bienhoa.jpg"
             width={80}
@@ -179,7 +179,7 @@ function Suggestions(props: Props) {
             <span>45p lái xe</span>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/thuanan.jpg"
             width={80}
@@ -192,7 +192,7 @@ function Suggestions(props: Props) {
             <span>30p lái xe</span>
           </div>
         </div>
-        <div className="flex justify-start items-center">
+        <div className="suggestion-grid-content flex justify-start items-center">
           <img
             src="./img/Suggestions/thapcham.jpg"
             width={80}
@@ -208,8 +208,8 @@ function Suggestions(props: Props) {
       </div>
       {/* ở bức cứ đâu */}
       <div className="max-w-7xl m-auto">
-        <h2 className="font-bold text-2xl my-8 ">Ở bức cứ đâu</h2>
-        <section className="flex">
+        <h2 className="some-where font-bold text-2xl my-8 ">Ở bức cứ đâu</h2>
+        <section className="someWhere-content flex">
           <div className="card">
             <div className="content">
               <div className="imgBx">

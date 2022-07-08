@@ -34,7 +34,7 @@ function App() {
         <UserTemplate path="/dangnhap" component={Login} />
         <UserTemplate path="/dangky" component={Register} />
 
-        <Route exact path="/user/:id" component={User} />
+        <Route exact path="/user" component={User} />
         <AdminTemplate path="/admin" component={QuanLyNguoiDung} />
 
         <HomeTemplate path="/" component={Home} />

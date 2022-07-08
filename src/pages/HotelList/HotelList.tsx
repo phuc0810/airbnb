@@ -61,7 +61,7 @@ function HotelList(props: Props) {
 
   return (
     <div
-      className="Roomlist container max-w-7xl mx-auto mt-28"
+      className="hotel-List container max-w-7xl mx-auto mt-28"
       style={{ top: "120px" }}
     >
       {/* //!menu bar  */}
@@ -100,7 +100,7 @@ function HotelList(props: Props) {
       </div>
       {/* //nguyên cái phần này tạo component riêng dưa qua header, cái list card thì liên quan gì tới cái menu mà nó nằm chugn ở đay v */}
       {/* //* giao diện phòng  */}
-      <div className="grid grid-cols-4 mt-10 gap-9">
+      <div className="hotel-grid grid grid-cols-4 mt-10 gap-9">
         {isLoading ? (
           changeHotelList?.map((item, i) => {
             return <Card item={item} isLoading={isLoading} key={i} />;

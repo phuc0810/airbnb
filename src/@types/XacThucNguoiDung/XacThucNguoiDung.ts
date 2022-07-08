@@ -28,7 +28,7 @@ export interface ThongTinDangKy {
   gender: boolean;
   address: string;
 }
-export interface User {
+export interface UserInfo {
   address?: string;
   avatar?: string;
   birthday?: string;
