@@ -13,7 +13,7 @@ import Login from "./pages/Login/Login";
 import User from "./pages/User/User";
 import UserTemplate from "./templates/UserTemplate/UserTemplate";
 import Register from "./pages/Register/Register";
-import QuanLyNguoiDung from "./pages/QuanLyNguoiDung/QuanLyNguoiDung";
+import QuanLyNguoiDung from "./pages/Admin/QuanLyNguoiDung/QuanLyNguoiDung";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 
 function App() {

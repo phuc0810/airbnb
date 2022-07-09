@@ -10,7 +10,8 @@ export const postCapNhatHinhDaiDien = createAsyncThunk(
       const result = await quanLyNguoiDungService.CapNhatAnhDaiDien(data);
       if (result.status === 200) {
         // dispatch(quanLyNguoiDungAction.setAvatar(result.data.avatar));
-        dispatch(xacThucNguoiDungAction.reloadAvatar(result.data))
+        dispatch(xacThucNguoiDungAction.reloadAvatar(result.data));
+        alert("cập nhật thành công");
       }
     } catch (error) {
       console.log(error);

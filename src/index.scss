@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 // helper
 @import "./assets/scss/helpers/mixins";
 
@@ -19,3 +18,6 @@
 @import "./assets/scss/pages/HotelList/HotelList.scss";
 @import "./assets/scss/templates/AdminTemplate.scss";
 
+// admin
+// quanlynguoidung - addAdmin
+@import "./assets/scss/pages/Admin/QuanLyNguoiDung/addAdmin";

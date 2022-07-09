@@ -275,9 +275,9 @@ function Details(props: Props) {
                 <div>
                   <StarIcon
                     className="text-pink-500"
-                    style={{ fontSize: "15px" }}
+                    style={{ fontSize: "15px"}}
                   />
-                  {reviewRoom?.locationId?.valueate}{" "}
+                  <span className="font-bold">{reviewRoom?.locationId?.valueate}</span>
                   <span className="underline">(18 đánh giá)</span>
                 </div>
               </div>
@@ -287,7 +287,7 @@ function Details(props: Props) {
         </div>
       </div>
       <div className="mt-8">
-        <StarIcon className="text-pink-500" />{" "}
+        <StarIcon className="text-pink-500" />
         <span className="text-lg font-bold">4,38(18 đánh giá)</span>
         <div className=" grid grid-cols-2 mt-6">
           {roomIsRated?.slice(0, 10).map((item, i) => {
@@ -336,6 +336,7 @@ function DatPhong(props: DatPhong) {
   // datapicker antd
   const { RangePicker } = DatePicker;
   let { id } = useParams<{ id: string }>();
+  let [diff, setDiff] = useState(0);
 
   const dateFormat = "DD/MM/YYYY";
 
@@ -343,19 +344,17 @@ function DatPhong(props: DatPhong) {
 
   const dispatch = useDispatch<any>();
   const history = useHistory();
-  let diff = 0;
 
   let onChange = (value: any, dateString: any) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
     formik.setFieldValue("checkIn", value[0].toISOString());
     formik.setFieldValue("checkOut", value[1].toISOString());
-    diff = value[1].diff(value[0], "d");
-    let totalPrice = diff * (props.price * 1);
+    setDiff(value[1].diff(value[0], "d"));
   };
 
-  let toltalPrice = () => {
-    // return totalDay * ;
+  let totalPrice = () => {
+    return (props.price as number) * diff || 0;
   };
 
   const formik = useFormik({
@@ -372,7 +371,11 @@ function DatPhong(props: DatPhong) {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div style={{ borderBottom: "2px solid #dddddd" }}>
-        <div className="text-center">
+        <div className="flex justify-around text-sm font-bold mt-4">
+          <span>Ngày vào</span>
+          <span>Ngày Trả</span>
+        </div>
+        <div className="text-center mb-6">
           <RangePicker
             defaultValue={[
               moment("1/7/2022", dateFormat),
@@ -385,12 +388,14 @@ function DatPhong(props: DatPhong) {
           />
           <br />
         </div>
-        <span>Tổng tiền: {toltalPrice}</span>
+        <div className="flex justify-around font-bold">
+          <span className="underline">Tổng Tiền:</span>
+          <span>{totalPrice().toLocaleString()} VNĐ</span>
+        </div>
         <Button
-          className="mt-10"
           variant="contained"
           type="submit"
-          style={{ width: "100%" }}
+          style={{ width: "100%",marginTop:'20px' }}
           onClick={() => {
             if (!localStorage.getItem(USER_LOGIN)) {
               history.push("/dangnhap");
@@ -408,7 +413,7 @@ interface DatPhong {
   price?: number;
 }
 
-// diablog
+// -------------------------diablog----------------------
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
