@@ -9,7 +9,7 @@ import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu } from "antd";
 import _ from "lodash";
 import React, { Fragment, useEffect, useState } from "react";
-import { Redirect, Route, useHistory } from "react-router-dom";
+import { NavLink, Redirect, Route, useHistory } from "react-router-dom";
 import {
   ACCESSTOKEN,
   USER_LOGIN,
@@ -45,8 +45,16 @@ export default function AdminTemplate(props: Props) {
   }
 
   const items: MenuItem[] = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
+    getItem(
+      <NavLink to={"/admin/quanlynguoidung"}>QL Người Dùng</NavLink>,
+      "1",
+      <PieChartOutlined />
+    ),
+    getItem(
+      <NavLink to={"/home"}>Quản Lý Người Dùng</NavLink>,
+      "2",
+      <DesktopOutlined />
+    ),
     getItem("User", "sub1", <UserOutlined />, [
       getItem("Tom", "3"),
       getItem("Bill", "4"),

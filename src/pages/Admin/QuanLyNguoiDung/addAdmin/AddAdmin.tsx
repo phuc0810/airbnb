@@ -9,7 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import FormAddAdmin from "../formAddAdmin/FormAddAdmin";
+import TableQuanLyNguoiDung from "../tableQuanLyNguoiDung/TableQuanLyNguoiDung";
 
+// --------------//! HOC Thêm Người Dùng----------------------
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -78,12 +80,10 @@ export default function AddAdmin() {
         <DialogContent dividers>
           <FormAddAdmin />
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions>
       </BootstrapDialog>
+      <div>
+        <TableQuanLyNguoiDung />
+      </div>
     </div>
   );
 }
