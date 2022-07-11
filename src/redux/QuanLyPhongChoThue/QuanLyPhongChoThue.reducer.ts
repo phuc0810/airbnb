@@ -14,7 +14,7 @@ interface typeInitialState {
     page: number;
     limit: number;
     locationId: string;
-  }
+  };
 }
 
 const initialState: typeInitialState = {
@@ -23,8 +23,8 @@ const initialState: typeInitialState = {
   filter: {
     page: 0,
     limit: 22,
-    locationId: ''
-  }
+    locationId: "",
+  },
 };
 
 export const {
@@ -89,9 +89,12 @@ export const {
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    updateFilter: (state, action: PayloadAction<{key: string, value: any}>) => {
-      const { key, value} = action.payload;
-      state.filter = {...state.filter, [key]: value}
-    }
+    updateFilter: (
+      state,
+      action: PayloadAction<{ key: string; value: any }>
+    ) => {
+      const { key, value } = action.payload;
+      state.filter = { ...state.filter, [key]: value };
+    },
   },
 });

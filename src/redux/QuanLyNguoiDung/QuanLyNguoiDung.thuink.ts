@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { quanLyNguoiDungService } from "../../service/QuanLyNguoiDungService";
+import { RootState } from "../store/rootReducer";
 import { xacThucNguoiDungAction } from "../XacThucNguoiDung/XacThucNguoiDung.reducer";
 import { quanLyNguoiDungAction } from "./QuanLyNguoiDung.reducer";
 
@@ -28,6 +29,22 @@ export const getLayThongTinNguoiDung = createAsyncThunk(
       );
       if (result.status === 200) {
         dispatch(quanLyNguoiDungAction.setThongTinNguoiDung(result.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const getLayDanhSachNguoiDung = createAsyncThunk(
+  "QuanLyNguoiDung/getLayDanhSachNguoiDung",
+  async (params, { dispatch, getState }) => {
+    const state = getState() as RootState;
+    const { page, limit } = state.quanLyNguoiDungReducer.filter;
+    try {
+      const result = await quanLyNguoiDungService.LayDanhSachNguoiDung(page,limit);
+      if (result.status === 200) {
+        dispatch(quanLyNguoiDungAction.setDanhSachNguoiDung(result.data));
       }
     } catch (error) {
       console.log(error);
