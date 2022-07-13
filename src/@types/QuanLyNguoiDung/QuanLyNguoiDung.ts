@@ -26,3 +26,14 @@ export interface NguoiDung {
   avatar: string;
   type: string;
 }
+
+export interface FormAddNguoiDung {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  birthday: string;
+  gender: boolean;
+  type: string;
+  address: string;
+}

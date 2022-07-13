@@ -11,24 +11,22 @@ export const useSelectorQuanLyNguoiDung = () => {
   return useSelector((state: RootState) => state.quanLyNguoiDungReducer);
 };
 
-export const useDispatchThongTinNguoiDung = (id: string) => {
+export const useDispatchDanhSachNguoiDung = () => {
+  const dispatch = useDispatch<any>();
+  let { danhSachNguoiDung, filter } = useSelectorQuanLyNguoiDung();
+  useEffect(() => {
+    // if (!danhSachNguoiDung) {
+    dispatch(getLayDanhSachNguoiDung());
+    // }
+  }, [filter]);
+  return { danhSachNguoiDung };
+};
+
+export const UseDispatchThongTinNguoiDung = (id: string) => {
   const dispatch = useDispatch<any>();
   let { thongTinNguoiDung } = useSelectorQuanLyNguoiDung();
   useEffect(() => {
-    if (!thongTinNguoiDung) {
-      dispatch(getLayThongTinNguoiDung(id));
-    }
-  }, []);
+    dispatch(getLayThongTinNguoiDung(id));
+  }, [id]);
   return { thongTinNguoiDung };
-};
-
-export const useDispatchDanhSachNguoiDung = () => {
-  const dispatch = useDispatch<any>();
-  let { danhSachNguoiDung,filter } = useSelectorQuanLyNguoiDung();
-  useEffect(() => {
-    if (!danhSachNguoiDung) {
-      dispatch(getLayDanhSachNguoiDung());
-    }
-  }, [filter]);
-  return { danhSachNguoiDung };
 };

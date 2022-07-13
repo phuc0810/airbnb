@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { FormAddNguoiDung } from "../../@types/QuanLyNguoiDung/QuanLyNguoiDung";
 import { quanLyNguoiDungService } from "../../service/QuanLyNguoiDungService";
 import { RootState } from "../store/rootReducer";
 import { xacThucNguoiDungAction } from "../XacThucNguoiDung/XacThucNguoiDung.reducer";
@@ -42,9 +43,41 @@ export const getLayDanhSachNguoiDung = createAsyncThunk(
     const state = getState() as RootState;
     const { page, limit } = state.quanLyNguoiDungReducer.filter;
     try {
-      const result = await quanLyNguoiDungService.LayDanhSachNguoiDung(page,limit);
+      const result = await quanLyNguoiDungService.LayDanhSachNguoiDung(
+        page,
+        limit
+      );
       if (result.status === 200) {
         dispatch(quanLyNguoiDungAction.setDanhSachNguoiDung(result.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const postTaoNguoiDung = createAsyncThunk(
+  "QuanLyNguoiDung/postTaoNguoiDung",
+  async (formAddNguoiDung: FormAddNguoiDung, { dispatch }) => {
+    try {
+      const result = await quanLyNguoiDungService.TaoNguoiDung(
+        formAddNguoiDung
+      );
+      alert("add thanh cong");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteNguoiDung = createAsyncThunk(
+  "QuanLyNguoiDung/deleteNguoiDung",
+  async (id: string, { dispatch }) => {
+    try {
+      const result = await quanLyNguoiDungService.XoaNguoiDung(id);
+      if (result.status === 200) {
+        alert("xóa thành công");
+        dispatch(getLayDanhSachNguoiDung());
       }
     } catch (error) {
       console.log(error);

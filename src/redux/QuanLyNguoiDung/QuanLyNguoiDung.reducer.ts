@@ -6,7 +6,7 @@ import {
 
 interface typeInitialState {
   Avatar?: any;
-  thongTinNguoiDung?: ThongTinNguoiDung;
+  thongTinNguoiDung?: ThongTinNguoiDung | null;
   danhSachNguoiDung?: NguoiDung[];
   filter: {
     page: number;
@@ -19,6 +19,7 @@ const initialState: typeInitialState = {
     page: 0,
     limit: 6,
   },
+  thongTinNguoiDung: null
 };
 
 export const {
@@ -31,7 +32,7 @@ export const {
     setAvatar: (state, action: PayloadAction<any>) => {
       state.Avatar = action.payload;
     },
-    setThongTinNguoiDung: (state, action: PayloadAction<ThongTinNguoiDung>) => {
+    setThongTinNguoiDung: (state, action: PayloadAction<ThongTinNguoiDung | null>) => {
       state.thongTinNguoiDung = action.payload;
     },
     setDanhSachNguoiDung: (state, action: PayloadAction<NguoiDung[]>) => {
@@ -42,6 +43,7 @@ export const {
       action: PayloadAction<{ key: string; value: any }>
     ) => {
       const { key, value } = action.payload;
+      console.log({ key, value });
       state.filter = { ...state.filter, [key]: value };
     },
   },

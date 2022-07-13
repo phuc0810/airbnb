@@ -54,17 +54,7 @@ export default function AdminTemplate(props: Props) {
       <NavLink to={"/home"}>Quản Lý Người Dùng</NavLink>,
       "2",
       <DesktopOutlined />
-    ),
-    getItem("User", "sub1", <UserOutlined />, [
-      getItem("Tom", "3"),
-      getItem("Bill", "4"),
-      getItem("Alex", "5"),
-    ]),
-    getItem("Team", "sub2", <TeamOutlined />, [
-      getItem("Team 1", "6"),
-      getItem("Team 2", "8"),
-    ]),
-    getItem("Files", "9", <FileOutlined />),
+    ),  
   ];
 
   const [collapsed, setCollapsed] = useState(false);

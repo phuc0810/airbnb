@@ -11,61 +11,54 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { postTaoNguoiDung } from "../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
+import { UseDispatchThongTinNguoiDung } from "../../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.selector";
+import moment from "moment";
 
-type Props = {};
+type Props = {
+  idUser: string;
+};
 
-function FormAddAdmin(props: Props) {
+function FormUpdateUser(props: Props) {
   const dispatch = useDispatch<any>();
+  let { thongTinNguoiDung } = UseDispatchThongTinNguoiDung(props.idUser);
+  console.log(thongTinNguoiDung);
 
   const handleOnChangeDate: DatePickerProps["onChange"] = (
     date,
     dateString
   ) => {
-    let birthday = dateString;
-    formik.setFieldValue("birthday", birthday);
-    console.log(dateString);
+    formik.setFieldValue("birthday", date?.toISOString());
   };
 
-  let handleChangeGender = (name: string) => {
-    return (e: any) => {
-      let boolean = true;
-      const valueRadioBox = e.target.value;
-      if (valueRadioBox === "male") {
-        boolean = true;
-      } else if (valueRadioBox === "female") {
-        boolean = false;
-      }
-      console.log(valueRadioBox);
-      console.log(boolean);
-
-      formik.setFieldValue(name, boolean);
-    };
+  let handleChangeGender = (event: any) => {
+    console.log(event.target.value);
+    formik.setFieldValue('gender', Boolean(event.target.value));
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      phone: "",
-      birthday: "",
-      gender: true,
-      type: "",
-      address: "",
+      name: thongTinNguoiDung?.name || '',
+      email: thongTinNguoiDung?.email || '',
+      password: thongTinNguoiDung?.password || '',
+      phone: thongTinNguoiDung?.phone || '',
+      birthday: thongTinNguoiDung?.birthday || null,
+      gender: thongTinNguoiDung?.gender || null,
+      type: thongTinNguoiDung?.type || null,
+      address: thongTinNguoiDung?.address || '',
     },
     validationSchema: Yup.object({}),
     onSubmit: (values) => {
       console.log(values);
-      dispatch(postTaoNguoiDung(values));
     },
   });
+
   return (
     <form className="form-add-admin" onSubmit={formik.handleSubmit}>
       <div className="flex -mx-3 flex-wrap">
         {/* //!input tên */}
         <div className="w-1/2 px-3 mb-5">
-          <label className="text-xs font-semibold px-1">Tên</label>
+          <label className="text-xs font-semibold px-1"></label>
           <div className="flex">
             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
               <i className="mdi mdi-account-outline text-gray-400 text-lg" />
@@ -77,8 +70,15 @@ function FormAddAdmin(props: Props) {
               name="name"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              value={formik.values.name}
             />
           </div>
+          {/* <Input
+            label="Ten",
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+           /> */}
         </div>
         {/* //!input email */}
         <div className="w-1/2 px-3 mb-5">
@@ -94,6 +94,7 @@ function FormAddAdmin(props: Props) {
               name="email"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              value={formik.values.email}
             />
           </div>
         </div>
@@ -112,6 +113,7 @@ function FormAddAdmin(props: Props) {
               name="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              value={formik.values.password}
             />
           </div>
         </div>
@@ -131,6 +133,7 @@ function FormAddAdmin(props: Props) {
               name="phone"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              value={formik.values.phone}
             />
           </div>
         </div>
@@ -150,6 +153,7 @@ function FormAddAdmin(props: Props) {
               name="address"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              value={formik.values.address}
             />
           </div>
         </div>
@@ -170,6 +174,8 @@ function FormAddAdmin(props: Props) {
               popupStyle={{
                 zIndex: 2000,
               }}
+              value={formik.values.birthday ? moment(formik.values.birthday) : null}
+              // defaultPickerValue={moment(formik.values.birthday)}
             />
           </div>
         </div>
@@ -185,21 +191,21 @@ function FormAddAdmin(props: Props) {
               <FormControl>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
+                  // defaultValue={formik.values.gender}
+                  value={formik.values.gender}
+                  onChange={handleChangeGender}
                   name="radio-buttons-group"
                   style={{ display: "flex", flexDirection: "row" }}
                 >
                   <FormControlLabel
-                    value="female"
+                    value={false}
                     control={<Radio />}
                     label="Nữ"
-                    onChange={handleChangeGender("gender")}
                   />
                   <FormControlLabel
-                    value="male"
+                    value={true}
                     control={<Radio />}
                     label="Nam"
-                    onChange={handleChangeGender("gender")}
                   />
                 </RadioGroup>
               </FormControl>
@@ -208,8 +214,7 @@ function FormAddAdmin(props: Props) {
         </div>
         <div className="flex -mx-3">
           <div className="w-full px-3 mb-5">
-            <label className="text-xs font-semibold px-1">Giới tính</label>
-            {/* input email */}
+            <label className="text-xs font-semibold px-1">Quyền Truy Cập</label>
             <div className="flex">
               <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                 <i className="mdi mdi-email-outline text-gray-400 text-lg" />
@@ -217,7 +222,8 @@ function FormAddAdmin(props: Props) {
               <FormControl>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
+                  value={formik.values.type}
+                  onChange={formik.handleChange}
                   name="radio-buttons-group"
                   style={{ display: "flex", flexDirection: "row" }}
                 >
@@ -225,14 +231,12 @@ function FormAddAdmin(props: Props) {
                     value="ADMIN"
                     control={<Radio />}
                     label="ADMIN"
-                    onChange={formik.handleChange}
                     name="type"
                   />
                   <FormControlLabel
                     value="CLIENT"
                     control={<Radio />}
                     label="CLIENT"
-                    onChange={formik.handleChange}
                     name="type"
                   />
                 </RadioGroup>
@@ -249,4 +253,4 @@ function FormAddAdmin(props: Props) {
   );
 }
 
-export default FormAddAdmin;
+export default FormUpdateUser;

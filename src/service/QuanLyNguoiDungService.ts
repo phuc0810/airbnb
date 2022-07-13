@@ -1,3 +1,4 @@
+import { FormAddNguoiDung } from "../@types/QuanLyNguoiDung/QuanLyNguoiDung";
 import { http } from "../util/setting/config";
 
 export class QuanLyNguoiDung {
@@ -11,6 +12,12 @@ export class QuanLyNguoiDung {
     return http.get(
       `/api/users/pagination?skip=${page * limit}&limit=${limit}`
     );
+  };
+  TaoNguoiDung = (formAddNguoiDung: FormAddNguoiDung) => {
+    return http.post("api/users", formAddNguoiDung);
+  };
+  XoaNguoiDung = (id: string) => {
+    return http.delete(`/api/users/${id}`);
   };
 }
 
