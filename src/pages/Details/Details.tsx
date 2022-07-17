@@ -23,7 +23,10 @@ import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useDispatchLayDanhSachDanhGiaTheoPhong } from "../../redux/QuanLyDanhGia/QuanLyDanhGia.selector";
 import { RoomId } from "../../@types/QuanLyDanhGia/QuanLyDanhGia";
 import moment from "moment";
-import { useDispatchReviewRoom } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
+import {
+  useDispatchReviewRoom,
+  useQuanLyPhongChoThue,
+} from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.selector";
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
@@ -40,6 +43,8 @@ import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
 import { USER_LOGIN } from "../../@types/XacThucNguoiDung/XacThucNguoiDung";
 import { postDatPhong } from "../../redux/QuanLyPhongChoThue/QuanLyPhongChoThue.thunk";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 // date-fns
 
@@ -275,9 +280,11 @@ function Details(props: Props) {
                 <div>
                   <StarIcon
                     className="text-pink-500"
-                    style={{ fontSize: "15px"}}
+                    style={{ fontSize: "15px" }}
                   />
-                  <span className="font-bold">{reviewRoom?.locationId?.valueate}</span>
+                  <span className="font-bold">
+                    {reviewRoom?.locationId?.valueate}
+                  </span>
                   <span className="underline">(18 đánh giá)</span>
                 </div>
               </div>
@@ -334,17 +341,42 @@ function ImageAvatars(props: imageAvatars) {
 
 function DatPhong(props: DatPhong) {
   // datapicker antd
+  let { snackBar } = useQuanLyPhongChoThue();
   const { RangePicker } = DatePicker;
   let { id } = useParams<{ id: string }>();
   let [diff, setDiff] = useState(0);
 
   const dateFormat = "DD/MM/YYYY";
 
+  //!-----------------------Alert Đặt phòng thành công-------------
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+    console.log("hello");
+  };
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   // !-------------------- gui du lieu di --------------------
 
   const dispatch = useDispatch<any>();
   const history = useHistory();
-
   let onChange = (value: any, dateString: any) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
@@ -379,7 +411,7 @@ function DatPhong(props: DatPhong) {
           <RangePicker
             defaultValue={[
               moment("1/7/2022", dateFormat),
-              moment("1/7/2022", dateFormat),
+              moment("8/7/2022", dateFormat),
             ]}
             format={dateFormat}
             onChange={onChange}
@@ -395,15 +427,35 @@ function DatPhong(props: DatPhong) {
         <Button
           variant="contained"
           type="submit"
-          style={{ width: "100%",marginTop:'20px' }}
+          style={{ width: "100%", marginTop: "20px" }}
           onClick={() => {
             if (!localStorage.getItem(USER_LOGIN)) {
               history.push("/dangnhap");
             }
+            handleClick();
           }}
         >
           Đặt Phòng
         </Button>
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          {snackBar ? (
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Đặt phòng thành công
+            </Alert>
+          ) : (
+            <Alert
+              onClose={handleClose}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              Đặt phòng thất bại !
+            </Alert>
+          )}
+        </Snackbar>
       </div>
     </form>
   );

@@ -51,7 +51,7 @@ export default function AdminTemplate(props: Props) {
       <PieChartOutlined />
     ),
     getItem(
-      <NavLink to={"/home"}>Quản Lý Người Dùng</NavLink>,
+      <NavLink to={"/admin/quanlyvitri"}>QL Vị Trí</NavLink>,
       "2",
       <DesktopOutlined />
     ),  

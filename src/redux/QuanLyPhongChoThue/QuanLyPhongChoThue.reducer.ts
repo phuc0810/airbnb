@@ -15,6 +15,7 @@ interface typeInitialState {
     limit: number;
     locationId: string;
   };
+  snackBar: boolean;
 }
 
 const initialState: typeInitialState = {
@@ -25,6 +26,7 @@ const initialState: typeInitialState = {
     limit: 22,
     locationId: "",
   },
+  snackBar: true,
 };
 
 export const {
@@ -95,6 +97,9 @@ export const {
     ) => {
       const { key, value } = action.payload;
       state.filter = { ...state.filter, [key]: value };
+    },
+    changeSnackbar: (state, action: PayloadAction<boolean>) => {
+      state.snackBar = action.payload;
     },
   },
 });

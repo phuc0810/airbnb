@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { UseDispatchThongTinNguoiDung } from "../../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.selector";
 import moment from "moment";
+import { putCapNhatNguoiDung } from "../../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
 
 type Props = {
   idUser: string;
@@ -31,25 +32,47 @@ function FormUpdateUser(props: Props) {
   };
 
   let handleChangeGender = (event: any) => {
-    console.log(event.target.value);
-    formik.setFieldValue('gender', Boolean(event.target.value));
+    formik.setFieldValue("gender", event.target.value);
   };
 
+  const getGenderValue = (value: any) => {
+    if (value === undefined) {
+      return null;
+    }
+    return value.toString();
+  };
+  const getBodyGender = (value: any) => {
+    if (value === "true") {
+      return true;
+    }
+    if (value === "false") {
+      return false;
+    }
+    return undefined;
+  };
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: thongTinNguoiDung?.name || '',
-      email: thongTinNguoiDung?.email || '',
-      password: thongTinNguoiDung?.password || '',
-      phone: thongTinNguoiDung?.phone || '',
+      name: thongTinNguoiDung?.name || "",
+      email: thongTinNguoiDung?.email || "",
+      phone: thongTinNguoiDung?.phone || "",
       birthday: thongTinNguoiDung?.birthday || null,
-      gender: thongTinNguoiDung?.gender || null,
+      gender: getGenderValue(thongTinNguoiDung?.gender),
       type: thongTinNguoiDung?.type || null,
-      address: thongTinNguoiDung?.address || '',
+      address: thongTinNguoiDung?.address || "",
     },
     validationSchema: Yup.object({}),
     onSubmit: (values) => {
       console.log(values);
+      let arg = {
+        values,
+        id: props.idUser,
+      };
+      const body = {
+        ...values,
+        gender: getBodyGender(values?.gender),
+      };
+      dispatch(putCapNhatNguoiDung(arg));
     },
   });
 
@@ -58,7 +81,7 @@ function FormUpdateUser(props: Props) {
       <div className="flex -mx-3 flex-wrap">
         {/* //!input tên */}
         <div className="w-1/2 px-3 mb-5">
-          <label className="text-xs font-semibold px-1"></label>
+          <label className="text-xs font-semibold px-1">Họ và Tên</label>
           <div className="flex">
             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
               <i className="mdi mdi-account-outline text-gray-400 text-lg" />
@@ -99,27 +122,7 @@ function FormUpdateUser(props: Props) {
           </div>
         </div>
 
-        {/* //!input password */}
-        <div className="w-1/2 px-3 mb-5">
-          <label className="text-xs font-semibold px-1">mật khẩu</label>
-          <div className="flex">
-            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-              <i className="mdi mdi-account-outline text-gray-400 text-lg" />
-            </div>
-            <input
-              type="password"
-              className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="password"
-              name="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-            />
-          </div>
-        </div>
-
         {/* //!input phone */}
-
         <div className="w-1/2 px-3 mb-5">
           <label className="text-xs font-semibold px-1">Số điện thoại</label>
           <div className="flex">
@@ -134,6 +137,30 @@ function FormUpdateUser(props: Props) {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.phone}
+            />
+          </div>
+        </div>
+
+        {/* //!input birthday */}
+        <div className="w-1/2 px-3 mb-5">
+          <label className="text-xs font-semibold px-1">sinh nhật</label>
+          <div className="flex">
+            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+              <i className="mdi mdi-account-outline text-gray-400 text-lg" />
+            </div>
+            <DatePicker
+              format={"DD/MM/YYYY"}
+              onChange={handleOnChangeDate}
+              onBlur={formik.handleBlur}
+              name="birthday"
+              className="w-2/3 -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white"
+              popupStyle={{
+                zIndex: 2000,
+              }}
+              value={
+                formik.values.birthday ? moment(formik.values.birthday) : null
+              }
+              // defaultPickerValue={moment(formik.values.birthday)}
             />
           </div>
         </div>
@@ -158,90 +185,65 @@ function FormUpdateUser(props: Props) {
           </div>
         </div>
 
-        {/* //!input birthday */}
         <div className="w-1/2 px-3 mb-5">
-          <label className="text-xs font-semibold px-1">sinh nhật</label>
+          <label className="text-xs font-semibold px-1">Giới tính</label>
+          {/* input email */}
           <div className="flex">
             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-              <i className="mdi mdi-account-outline text-gray-400 text-lg" />
+              <i className="mdi mdi-email-outline text-gray-400 text-lg" />
             </div>
-            <DatePicker
-              format={"DD/MM/YYYY"}
-              onChange={handleOnChangeDate}
-              onBlur={formik.handleBlur}
-              name="birthday"
-              className="w-2/3 -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white"
-              popupStyle={{
-                zIndex: 2000,
-              }}
-              value={formik.values.birthday ? moment(formik.values.birthday) : null}
-              // defaultPickerValue={moment(formik.values.birthday)}
-            />
+            <FormControl>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                // defaultValue={formik.values.gender}
+                value={formik.values.gender}
+                onChange={handleChangeGender}
+                name="radio-buttons-group"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <FormControlLabel
+                  value="false"
+                  control={<Radio />}
+                  label="Nữ"
+                />
+                <FormControlLabel
+                  value="true"
+                  control={<Radio />}
+                  label="Nam"
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
         </div>
 
-        <div className="flex -mx-3">
-          <div className="w-full px-3 mb-5">
-            <label className="text-xs font-semibold px-1">Giới tính</label>
-            {/* input email */}
-            <div className="flex">
-              <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                <i className="mdi mdi-email-outline text-gray-400 text-lg" />
-              </div>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  // defaultValue={formik.values.gender}
-                  value={formik.values.gender}
-                  onChange={handleChangeGender}
-                  name="radio-buttons-group"
-                  style={{ display: "flex", flexDirection: "row" }}
-                >
-                  <FormControlLabel
-                    value={false}
-                    control={<Radio />}
-                    label="Nữ"
-                  />
-                  <FormControlLabel
-                    value={true}
-                    control={<Radio />}
-                    label="Nam"
-                  />
-                </RadioGroup>
-              </FormControl>
+        <div className="w-1/2 px-3 mb-5">
+          <label className="text-xs font-semibold px-1">Quyền Truy Cập</label>
+          <div className="flex">
+            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+              <i className="mdi mdi-email-outline text-gray-400 text-lg" />
             </div>
-          </div>
-        </div>
-        <div className="flex -mx-3">
-          <div className="w-full px-3 mb-5">
-            <label className="text-xs font-semibold px-1">Quyền Truy Cập</label>
-            <div className="flex">
-              <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                <i className="mdi mdi-email-outline text-gray-400 text-lg" />
-              </div>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  value={formik.values.type}
-                  onChange={formik.handleChange}
-                  name="radio-buttons-group"
-                  style={{ display: "flex", flexDirection: "row" }}
-                >
-                  <FormControlLabel
-                    value="ADMIN"
-                    control={<Radio />}
-                    label="ADMIN"
-                    name="type"
-                  />
-                  <FormControlLabel
-                    value="CLIENT"
-                    control={<Radio />}
-                    label="CLIENT"
-                    name="type"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
+            <FormControl>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                value={formik.values.type}
+                onChange={formik.handleChange}
+                name="radio-buttons-group"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <FormControlLabel
+                  value="ADMIN"
+                  control={<Radio />}
+                  label="ADMIN"
+                  name="type"
+                />
+                <FormControlLabel
+                  value="CLIENT"
+                  control={<Radio />}
+                  label="CLIENT"
+                  name="type"
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
         </div>
       </div>

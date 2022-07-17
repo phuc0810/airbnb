@@ -8,11 +8,20 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import FormAddAdmin from "../formAddAdmin/FormAddAdmin";
-import TableQuanLyNguoiDung from "../tableQuanLyNguoiDung/TableQuanLyNguoiDung";
-import InputSearch from "../../../_Components/Search/InputSearch";
+// -----//!icon-----------------
+import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch } from "react-redux";
+import { getLayThongTinNguoiDung } from "../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
+import { quanLyNguoiDungAction } from "../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.reducer";
+import FormUpdateLocation from "./FormUpdateLocation/FormUpdateLocation";
+import { quanLyViTriAction } from "../../../../redux/QuanLyViTri/QuanLyViTri.reducer";
 
 // --------------//! HOC Thêm Người Dùng----------------------
+
+type UpdateLocation = {
+  idUser: string;
+};
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -52,7 +61,8 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-export default function AddAdmin() {
+export default function UpdateLocation(props: UpdateLocation) {
+  const dispatch = useDispatch<any>();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -60,14 +70,15 @@ export default function AddAdmin() {
   };
   const handleClose = () => {
     setOpen(false);
+    dispatch(quanLyViTriAction.setThongTinChiTietViTri(null));
   };
 
   return (
     <div className="form-addAdmin">
-      <div className="flex justify-between">
-        <Button variant="contained" onClick={handleClickOpen}>
-          Thêm Quản Trị Viên
-        </Button>
+      <Button variant="text" onClick={handleClickOpen}>
+        <EditIcon />
+      </Button>
+      {open && (
         <BootstrapDialog
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
@@ -77,17 +88,13 @@ export default function AddAdmin() {
             id="customized-dialog-title"
             onClose={handleClose}
           >
-            THÊM QUẢN TRỊ VIÊN
+            Sửa Thông Tin Vị Trí
           </BootstrapDialogTitle>
           <DialogContent dividers>
-            <FormAddAdmin />
+            <FormUpdateLocation idUser={props.idUser} />
           </DialogContent>
         </BootstrapDialog>
-        <InputSearch />
-      </div>
-      <div>
-        <TableQuanLyNguoiDung />
-      </div>
+      )}
     </div>
   );
 }

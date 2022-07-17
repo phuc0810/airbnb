@@ -15,6 +15,7 @@ import UserTemplate from "./templates/UserTemplate/UserTemplate";
 import Register from "./pages/Register/Register";
 import QuanLyNguoiDung from "./pages/Admin/QuanLyNguoiDung/QuanLyNguoiDung";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
+import QuanLyViTri from "./pages/Admin/QuanLyViTri/QuanLyViTri";
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
         <Route exact path="/user" component={User} />
 
         <AdminTemplate path="/admin/quanlynguoidung" component={QuanLyNguoiDung} />
-        <AdminTemplate path="/admin" component={QuanLyNguoiDung} />
+        <AdminTemplate path="/admin/quanlyvitri" component={QuanLyViTri} />
 
         <HomeTemplate path="/" component={Home} />
       </Switch>

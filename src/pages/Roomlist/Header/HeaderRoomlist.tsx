@@ -52,7 +52,7 @@ function HeaderRoomlist(props: Props) {
     },
     {
       key: ProfileEnum.LOG_OUT,
-      label: "Đăng xuất nè",
+      label: "Đăng xuất",
       onClick: () => {
         console.log("-------------logging out---------");
 

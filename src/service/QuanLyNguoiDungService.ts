@@ -1,4 +1,5 @@
 import { FormAddNguoiDung } from "../@types/QuanLyNguoiDung/QuanLyNguoiDung";
+import { updateUser } from "../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
 import { http } from "../util/setting/config";
 
 export class QuanLyNguoiDung {
@@ -18,6 +19,9 @@ export class QuanLyNguoiDung {
   };
   XoaNguoiDung = (id: string) => {
     return http.delete(`/api/users/${id}`);
+  };
+  CapNhatNguoiDung = (arg: updateUser) => {
+    return http.put(`/api/users/${arg.id}`, arg.values);
   };
 }
 

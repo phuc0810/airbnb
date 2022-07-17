@@ -8,9 +8,11 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import FormAddAdmin from "../formAddAdmin/FormAddAdmin";
-import TableQuanLyNguoiDung from "../tableQuanLyNguoiDung/TableQuanLyNguoiDung";
-import InputSearch from "../../../_Components/Search/InputSearch";
+import TableQuanLyViTri from "./TableQuanLyViTri/TableQuanLyViTri";
+import FormAddViTri from "./FormAddQuanLyViTri/FormAddViTri";
+// import FormAddAdmin from "../formAddAdmin/FormAddAdmin";
+// import TableQuanLyNguoiDung from "../tableQuanLyNguoiDung/TableQuanLyNguoiDung";
+// import InputSearch from "../../../_Components/Search/InputSearch";
 
 // --------------//! HOC Thêm Người Dùng----------------------
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -66,7 +68,7 @@ export default function AddAdmin() {
     <div className="form-addAdmin">
       <div className="flex justify-between">
         <Button variant="contained" onClick={handleClickOpen}>
-          Thêm Quản Trị Viên
+         THÊM VỊ TRÍ
         </Button>
         <BootstrapDialog
           onClose={handleClose}
@@ -77,16 +79,16 @@ export default function AddAdmin() {
             id="customized-dialog-title"
             onClose={handleClose}
           >
-            THÊM QUẢN TRỊ VIÊN
+            THÊM VỊ TRÍ
           </BootstrapDialogTitle>
           <DialogContent dividers>
-            <FormAddAdmin />
+            <FormAddViTri />
           </DialogContent>
         </BootstrapDialog>
-        <InputSearch />
+        {/* <InputSearch /> */}
       </div>
       <div>
-        <TableQuanLyNguoiDung />
+        <TableQuanLyViTri />
       </div>
     </div>
   );

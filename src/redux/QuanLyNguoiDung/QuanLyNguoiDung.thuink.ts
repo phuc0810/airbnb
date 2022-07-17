@@ -63,7 +63,11 @@ export const postTaoNguoiDung = createAsyncThunk(
       const result = await quanLyNguoiDungService.TaoNguoiDung(
         formAddNguoiDung
       );
-      alert("add thanh cong");
+      if (result.status === 200) {
+        dispatch(quanLyNguoiDungAction.changeSnackbar(true));
+      } else {
+        dispatch(quanLyNguoiDungAction.changeSnackbar(false));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +81,36 @@ export const deleteNguoiDung = createAsyncThunk(
       const result = await quanLyNguoiDungService.XoaNguoiDung(id);
       if (result.status === 200) {
         alert("xóa thành công");
+        dispatch(getLayDanhSachNguoiDung());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+// -------------------//!putCapNhatNGuoiDung--------------
+
+export interface updateUser {
+  values: {
+    name: string | null;
+    email: string | null;
+    phone: string | null;
+    birthday: string | null;
+    gender: boolean;
+    address: string | null;
+    type: string | null;
+  };
+  id: string;
+}
+
+export const putCapNhatNguoiDung = createAsyncThunk(
+  "QuanLyNguoiDung/putCapNhatNguoiDung",
+  async (arg: updateUser, { dispatch }) => {
+    try {
+      const result = await quanLyNguoiDungService.CapNhatNguoiDung(arg);
+      if (result.status === 200) {
+        alert("cập nhật thành công");
         dispatch(getLayDanhSachNguoiDung());
       }
     } catch (error) {

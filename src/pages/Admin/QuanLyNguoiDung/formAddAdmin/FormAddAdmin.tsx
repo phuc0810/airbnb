@@ -12,8 +12,19 @@ import {
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { postTaoNguoiDung } from "../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
+//!---------------------- snackbar-----------------
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { useSelectorQuanLyNguoiDung } from "../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.selector";
 
 type Props = {};
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function FormAddAdmin(props: Props) {
   const dispatch = useDispatch<any>();
@@ -41,6 +52,25 @@ function FormAddAdmin(props: Props) {
 
       formik.setFieldValue(name, boolean);
     };
+  };
+
+  // !-------------------------- handleSnackbar-----------------
+  let { changeSnackbar } = useSelectorQuanLyNguoiDung();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   const formik = useFormik({
@@ -242,9 +272,30 @@ function FormAddAdmin(props: Props) {
         </div>
       </div>
       <hr className="mb-4 bg-gray-500" style={{ height: "2px" }} />
-      <Button variant="contained" type="submit" className="float-right">
+      <Button
+        variant="contained"
+        type="submit"
+        className="float-right"
+        onClick={handleClick}
+      >
         submit
       </Button>
+
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        {changeSnackbar ? (
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Thêm người dùng thành công
+          </Alert>
+        ) : (
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            Thêm người dùng thất bại
+          </Alert>
+        )}
+      </Snackbar>
     </form>
   );
 }

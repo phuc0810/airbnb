@@ -19,22 +19,26 @@ import { quanLyNguoiDungAction } from "../../../../redux/QuanLyNguoiDung/QuanLyN
 // ----------------//!icon----------------------
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
-import UpdateUser from "../UpdateUser/UpdateUser";
+// import UpdateUser from "../UpdateUser/UpdateUser";
 import { deleteNguoiDung } from "../../../../redux/QuanLyNguoiDung/QuanLyNguoiDung.thuink";
+import { useDispatchDanhSachViTri } from "../../../../redux/QuanLyViTri/QuanLyViTri.selector";
+import { quanLyViTriAction } from "../../../../redux/QuanLyViTri/QuanLyViTri.reducer";
+import { deleteLocation } from "../../../../redux/QuanLyViTri/QuanLyViTri.thunk";
+import UpdateLocation from "../UpdateLocation/UpdateLocation";
 
 type Props = {};
 
-function TableQuanLyNguoiDung(props: Props) {
-  let { danhSachNguoiDung } = useDispatchDanhSachNguoiDung();
+function TableQuanLyViTri(props: Props) {
+  let { danhSachViTri } = useDispatchDanhSachViTri();
   // console.log(danhSachNguoiDung);
   const dispatch = useDispatch<any>();
 
-  const rows = danhSachNguoiDung ? [...danhSachNguoiDung] : [];
+  const rows = danhSachViTri ? [...danhSachViTri] : [];
 
   let onchangePanigate = (event: React.ChangeEvent<unknown>, page: number) => {
     console.log(page);
     dispatch(
-      quanLyNguoiDungAction.updateFilter({
+      quanLyViTriAction.updateFilter({
         key: "page",
         value: page - 1,
       })
@@ -42,48 +46,32 @@ function TableQuanLyNguoiDung(props: Props) {
   };
 
   const columns: GridColDef[] = [
-    { field: "_id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 250 },
+    {
+      field: "country",
+      headerName: "country",
+      width: 150,
+    },
     {
       field: "name",
       headerName: "name",
-      width: 150,
+      width: 200,
     },
     {
-      field: "email",
-      headerName: "Email",
-      width: 150,
-    },
-    {
-      field: "phone",
-      headerName: "Số điện thoại",
+      field: "province",
+      headerName: "province",
       width: 110,
     },
     {
-      field: "birthday",
-      headerName: "birthday",
-      width: 110,
+      field: "valueate",
+      headerName: "valueate",
+      width: 100,
     },
     {
-      field: "gender",
-      headerName: "gender",
+      field: "image",
+      headerName: "image",
       width: 110,
-      valueGetter: ({ value }) => (value ? "Nam" : "Nữ"),
-    },
-    {
-      field: "address",
-      headerName: "address",
-      width: 150,
-    },
-    {
-      field: "type",
-      headerName: "type",
-      width: 110,
-    },
-    {
-      field: "avatar",
-      headerName: "avatar",
-      width: 110,
-      renderCell: (params) => <img src={params.row.avatar} alt="" />,
+      renderCell: (params) => <img src={params.row.image} alt="" />,
     },
     {
       field: "action",
@@ -96,19 +84,18 @@ function TableQuanLyNguoiDung(props: Props) {
               variant="text"
               onClick={() => {
                 if (window.confirm("bạn có chắc muốn xóa ?")) {
-                  dispatch(deleteNguoiDung(params.row._id));
+                  dispatch(deleteLocation(params.row._id));
                 }
               }}
             >
               <DeleteIcon className="text-red-500" />
             </Button>
-            <UpdateUser idUser={params.row._id} />
+            <UpdateLocation idUser={params.row._id} />
           </div>
         );
       },
     },
   ];
-  
 
   return (
     <div>
@@ -119,7 +106,7 @@ function TableQuanLyNguoiDung(props: Props) {
           pageSize={6}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
-          loading={_.isEmpty(danhSachNguoiDung)}
+          loading={_.isEmpty(danhSachViTri)}
           getRowId={(row) => row._id}
           hideFooter
           autoHeight
@@ -130,4 +117,4 @@ function TableQuanLyNguoiDung(props: Props) {
   );
 }
 
-export default TableQuanLyNguoiDung;
+export default TableQuanLyViTri;

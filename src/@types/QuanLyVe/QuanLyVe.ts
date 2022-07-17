@@ -45,7 +45,7 @@ export interface NavList {
   name: string;
   icon: string;
   id: string;
-  nameID:string
+  nameID: string;
 }
 
 export interface DanhSachViTri {
@@ -68,3 +68,9 @@ export interface ViTri {
   _id: string;
 }
 
+export interface payloadUpdateLocation {
+  name: string;
+  province: string;
+  country: string;
+  valueate: number | string;
+}

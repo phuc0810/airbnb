@@ -64,10 +64,11 @@ export const postDatPhong = createAsyncThunk(
     try {
       const result = await quanLyPhongChothue.DatPhong(phongDat);
       if (result.status === 200) {
-        alert('đặt phòng thành công')
+        dispatch(quanLyPhongChoThueAction.changeSnackbar(true));
       }
     } catch (error) {
       console.log(error);
+      dispatch(quanLyPhongChoThueAction.changeSnackbar(false));
     }
   }
 );
