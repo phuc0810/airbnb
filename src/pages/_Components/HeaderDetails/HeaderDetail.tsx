@@ -173,7 +173,7 @@ function HeaderDetail(props: Props) {
                         </MenuItem>
                       );
                     })}
-              </Menu> 
+              </Menu>
             </Box>
           </div>
         </div>

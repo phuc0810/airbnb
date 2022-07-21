@@ -16,6 +16,12 @@ interface typeInitialState {
     locationId: string;
   };
   snackBar: boolean;
+  filterAdmin: {
+    pageAdmin: number;
+    limitAdmin: number;
+  };
+  hotelListAdmin?: DSHotel[];
+  thongTinChiTietPhong?: DSHotel | null;
 }
 
 const initialState: typeInitialState = {
@@ -27,6 +33,10 @@ const initialState: typeInitialState = {
     locationId: "",
   },
   snackBar: true,
+  filterAdmin: {
+    pageAdmin: 0,
+    limitAdmin: 6,
+  },
 };
 
 export const {
@@ -100,6 +110,20 @@ export const {
     },
     changeSnackbar: (state, action: PayloadAction<boolean>) => {
       state.snackBar = action.payload;
+    },
+    updateFilterAdmin: (
+      state,
+      action: PayloadAction<{ key: string; value: any }>
+    ) => {
+      const { key, value } = action.payload;
+      state.filterAdmin = { ...state.filterAdmin, [key]: value };
+      console.log(value);
+    },
+    setHotelListAdmin: (state, action: PayloadAction<DSHotel[]>) => {
+      state.hotelListAdmin = action.payload;
+    },
+    setThongTinChiTietPhong: (state, action: PayloadAction<DSHotel | null>) => {
+      state.thongTinChiTietPhong = action.payload;
     },
   },
 });

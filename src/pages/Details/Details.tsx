@@ -70,7 +70,7 @@ function Details(props: Props) {
   return (
     <div className="details container max-w-7xl mx-auto">
       <h1 className="text-3xl my-3 font-bold">{reviewRoom?.name}</h1>
-      <div className="flex justify-between my-5">
+      <div className="details-title flex justify-between my-5">
         <p>
           <StarIcon className="text-pink-500" />{" "}
           <span className="font-bold">{reviewRoom?.locationId?.valueate}</span>
@@ -90,8 +90,8 @@ function Details(props: Props) {
         </div>
       </div>
 
-      <div className="relative">
-        <div className="grid grid-cols-4 gap-2">
+      <div className="featured-image relative">
+        <div className="img-room grid grid-cols-4 gap-2">
           <div
             className="col-span-2 row-span-2"
             style={{
@@ -178,9 +178,12 @@ function Details(props: Props) {
         </div>
         <FullScreenDialog />
       </div>
-      <div className="flex pb-8" style={{ borderBottom: "2px solid #dddddd" }}>
-        <div className="left" style={{ width: "60%" }}>
-          <div style={{ width: "80%" }}>
+      <div
+        className="detail-content flex pb-8"
+        style={{ borderBottom: "2px solid #dddddd" }}
+      >
+        <div className="left w-3/5">
+          <div className="w-4/5">
             <div
               className="flex justify-between pb-10 mt-10"
               style={{ borderBottom: "2px solid #dddddd" }}
@@ -260,7 +263,7 @@ function Details(props: Props) {
         </div>
 
         {/* ------------------------ */}
-        <div className="right mt-10" style={{ width: "40%" }}>
+        <div className="right mt-10 w-2/5">
           <div
             className="datphong"
             style={{
@@ -521,7 +524,7 @@ function FullScreenDialog() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <div className="max-w-7xl mx-auto mt-28">
+        <div className="list-img-hotel-title max-w-7xl mx-auto mt-28">
           <div className="grid grid-cols-2 gap-2">
             <div
               className="col-span-2"
@@ -538,16 +541,38 @@ function FullScreenDialog() {
                 alt=""
               />
             </div>
-            <div>
-              <img src="http://picsum.photos/400?random=2" alt="" />
+            <div
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=10)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=2"
+                alt=""
+              />
             </div>
-            <div>
-              <img src="http://picsum.photos/400?random=3" alt="" />
+            <div
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=9)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=3"
+                alt=""
+              />
             </div>
             <div
               className="col-span-2"
               style={{
-                backgroundImage: "url(http://picsum.photos/400?random=10)",
+                backgroundImage: "url(http://picsum.photos/400?random=8)",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
@@ -559,16 +584,38 @@ function FullScreenDialog() {
                 alt=""
               />
             </div>
-            <div>
-              <img src="http://picsum.photos/400?random=5" alt="" />
+            <div
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=6)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=5"
+                alt=""
+              />
             </div>
-            <div>
-              <img src="http://picsum.photos/400?random=6" alt="" />
+            <div
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=5)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=6"
+                alt=""
+              />
             </div>
             <div
               className="col-span-2"
               style={{
-                backgroundImage: "url(http://picsum.photos/400?random=7)",
+                backgroundImage: "url(http://picsum.photos/400?random=4)",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
@@ -580,11 +627,33 @@ function FullScreenDialog() {
                 alt=""
               />
             </div>
-            <div>
-              <img src="http://picsum.photos/400?random=8" alt="" />
+            <div
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=3)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=8"
+                alt=""
+              />
             </div>
-            <div>
-              <img src="http://picsum.photos/400?random=9" alt="" />
+            <div
+              style={{
+                backgroundImage: "url(http://picsum.photos/400?random=2)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <img
+                className="opacity-0"
+                src="http://picsum.photos/400?random=9"
+                alt=""
+              />
             </div>
           </div>
         </div>

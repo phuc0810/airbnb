@@ -27,18 +27,30 @@
 }
 
 // Reponsive
+@include MediaQuery($lg) {
+  .Roomlist {
+    max-width: 1024px;
+  }
+}
 
 @include MediaQuery($md) {
   .Roomlist {
+    max-width: 960px;
+  }
+}
+
+@include MediaQuery($sm) {
+  .Roomlist {
+    max-width: 640px;
     .roomList-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 }
 
-
 @include MediaQuery($xs) {
   .Roomlist {
+    max-width: 540px;
     .roomList-grid {
       grid-template-columns: repeat(1, minmax(0, 1fr));
     }

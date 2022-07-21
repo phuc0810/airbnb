@@ -54,7 +54,12 @@ export default function AdminTemplate(props: Props) {
       <NavLink to={"/admin/quanlyvitri"}>QL Vị Trí</NavLink>,
       "2",
       <DesktopOutlined />
-    ),  
+    ),
+    getItem(
+      <NavLink to={"/admin/quanlyphong"}>QL Vị Phòng</NavLink>,
+      "3",
+      <DesktopOutlined />
+    ),
   ];
 
   const [collapsed, setCollapsed] = useState(false);

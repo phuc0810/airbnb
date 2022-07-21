@@ -37,6 +37,7 @@ function FormAddViTri(props: Props) {
     if (reason === "clickaway") {
       return;
     }
+    dispatch(quanLyViTriAction.setChangeSnackbar(null))
     setOpen(false);
   };
 
@@ -47,7 +48,9 @@ function FormAddViTri(props: Props) {
       country: "",
       valueate: 0,
     },
-    validationSchema: Yup.object({}),
+    validationSchema: Yup.object({
+      valueate: Yup.number().min(0, "từ 0-10").max(10, "từ 0-10"),
+    }),
     onSubmit: (values) => {
       console.log(values);
       dispatch(postAddLocation(values));
@@ -122,6 +125,8 @@ function FormAddViTri(props: Props) {
               name="valueate"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              min="0"
+              max="10"
             />
           </div>
         </div>

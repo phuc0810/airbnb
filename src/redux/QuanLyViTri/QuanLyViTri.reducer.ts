@@ -7,7 +7,7 @@ interface typeInitialState {
     limit: number;
   };
   danhSachViTri?: ViTri[];
-  changeSnackbar?: boolean;
+  changeSnackbar?: boolean | null;
   thongTinChiTietViTri?: ViTri | null;
 }
 
@@ -16,7 +16,7 @@ const initialState: typeInitialState = {
     page: 0,
     limit: 6,
   },
-  changeSnackbar: true,
+  changeSnackbar: null,
 };
 
 export const { reducer: quanLyViTriReducer, actions: quanLyViTriAction } =
@@ -35,10 +35,7 @@ export const { reducer: quanLyViTriReducer, actions: quanLyViTriAction } =
         console.log({ key, value });
         state.filter = { ...state.filter, [key]: value };
       },
-      setChangeSnackbar: (
-        state,
-        action: PayloadAction<boolean | undefined>
-      ) => {
+      setChangeSnackbar: (state, action: PayloadAction<boolean | null>) => {
         state.changeSnackbar = action.payload;
       },
       setThongTinChiTietViTri: (state, action: PayloadAction<ViTri | null>) => {

@@ -3,7 +3,12 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/rootReducer";
 import { quanLyPhongChoThueAction } from "./QuanLyPhongChoThue.reducer";
-import { getHotelList, getReviewRoom } from "./QuanLyPhongChoThue.thunk";
+import {
+  getHotelList,
+  getHotelListAdmin,
+  getReviewRoom,
+  getThongTinChiTietPhong,
+} from "./QuanLyPhongChoThue.thunk";
 
 export const useQuanLyPhongChoThue = () =>
   useSelector((state: RootState) => state.quanLyPhongChoThueReducer);
@@ -30,4 +35,24 @@ export const useDispatchReviewRoom = (id: string) => {
     };
   }, []);
   return { reviewRoom };
+};
+
+export const useDispatchHotelListAdmin = () => {
+  const dispatch = useDispatch<any>();
+  const { hotelListAdmin, filterAdmin } = useQuanLyPhongChoThue();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getHotelListAdmin());
+  }, [filterAdmin]);
+  return { hotelListAdmin };
+};
+
+export const useDispatchChiTietPhong = (id: string) => {
+  const dispatch = useDispatch<any>();
+  const { thongTinChiTietPhong } = useQuanLyPhongChoThue();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getThongTinChiTietPhong(id));
+  }, [id]);
+  return { thongTinChiTietPhong };
 };

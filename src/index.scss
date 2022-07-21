@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+// variant
+@import "./assets/scss/helpers/variable";
+
 // helper
 @import "./assets/scss/helpers/mixins";
 
@@ -17,6 +20,10 @@
 @import "./assets/scss/pages/Details/Detail.scss";
 @import "./assets/scss/pages/HotelList/HotelList.scss";
 @import "./assets/scss/templates/AdminTemplate.scss";
+
+// user
+@import "./assets/scss/pages/User/User";
+@import "./assets/scss/pages/User/HeaderUser";
 
 // admin
 // quanlynguoidung - addAdmin

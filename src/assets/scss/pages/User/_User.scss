@@ -1,0 +1,28 @@
+@include MediaQuery($lg) {
+  .user-body {
+    max-width: 1024px;
+    .user-avatar {
+      width: 40%;
+    }
+  }
+}
+
+@include MediaQuery($md) {
+  .user-body {
+    max-width: 960px;
+  }
+}
+
+@include MediaQuery($sm) {
+  .user-body {
+    max-width: 640px;
+    & > div {
+      display: block;
+      width: 100%;
+    }
+    .user-avatar {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+}

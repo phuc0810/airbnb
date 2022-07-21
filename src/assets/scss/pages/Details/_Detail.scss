@@ -46,3 +46,93 @@
 .css-m9glnp-MuiPaper-root-MuiDialog-paper {
   left: 0%;
 }
+
+// !-------------- MediaQuery ----------------
+
+@include MediaQuery($lg) {
+  .details {
+    max-width: 1024px;
+  }
+}
+
+@include MediaQuery($md) {
+  .details {
+    max-width: 960px;
+  }
+  .list-img-hotel-title {
+    margin: 0%;
+    margin-top: 5%;
+  }
+}
+
+@include MediaQuery($sm) {
+  .details {
+    padding: 20px;
+    & > h1 {
+      text-align: center;
+    }
+    .details-title {
+      display: block;
+    }
+    .featured-image {
+      .img-room {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+    .detail-content {
+      display: block;
+      .left {
+        width: 100%;
+        & > div {
+          width: 100%;
+        }
+      }
+      .right {
+        width: 100%;
+      }
+    }
+  }
+  .list-img-hotel-title {
+    margin: 0%;
+    margin-top: 5%;
+    & > div {
+      display: block;
+    }
+  }
+}
+
+@include MediaQuery($xs) {
+  .details {
+    padding: 20px;
+    & > h1 {
+      text-align: center;
+    }
+    .details-title {
+      display: block;
+    }
+    .featured-image {
+      .img-room {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+    .detail-content {
+      display: block;
+      .left {
+        width: 100%;
+        & > div {
+          width: 100%;
+        }
+      }
+      .right {
+        width: 100%;
+      }
+    }
+  }
+  .list-img-hotel-title {
+    margin: 0%;
+    margin-top: 5%;
+    & > div {
+      display: block;
+    }
+  }
+}

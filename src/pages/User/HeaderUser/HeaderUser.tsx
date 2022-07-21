@@ -65,7 +65,7 @@ function HeaderUser(props: Props) {
 
   return (
     <header
-      className="header-roomlist p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
+      className="header-user p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-white text-black w-full z-10 "
       style={{ borderBottom: "2px solid #efefef", top: 0 }}
     >
       <div className="container flex justify-between h-16 mx-auto">
@@ -93,7 +93,7 @@ function HeaderUser(props: Props) {
           </NavLink>
         </NavLink>
 
-        <div className="right-headerRoomlist items-center justify-center flex-shrink-0 hidden lg:flex">
+        <div className="right-header-user items-center justify-center flex-shrink-0 hidden lg:flex">
           <div>
             <NavLink to="/trainghiem">Trở thành chủ nhà</NavLink>
             <span className="ml-3">
@@ -101,10 +101,10 @@ function HeaderUser(props: Props) {
             </span>
           </div>
           <div className="ml-12">
-            <Box sx={{ flexGrow: 0 }}>
+            <Box className="user_setting" sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <div className="icon-headerRoomList flex justify-center items-center p-1">
+                  <div className="icon-header-user flex justify-center items-center p-1">
                     <BarsOutlined />
                     <AccountCircleIcon className="ml-2" />
                   </div>

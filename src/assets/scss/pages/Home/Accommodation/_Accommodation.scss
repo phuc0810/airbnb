@@ -126,6 +126,12 @@ header {
   }
 }
 
+@include MediaQuery($xs) {
+  .search {
+    display: none;
+  }
+}
+
 // Media Query
 @include MediaQuery($lg) {
   .body-home {
@@ -144,6 +150,9 @@ header {
 @include MediaQuery($md) {
   .body-home {
     max-width: 992px;
+    .search {
+      display: none;
+    }
     .suggestion {
       h1 {
         text-align: center;
@@ -169,6 +178,9 @@ header {
 
 @include MediaQuery($sm) {
   .body-home {
+    .search {
+      display: none;
+    }
     .suggestion {
       h1 {
         text-align: center;

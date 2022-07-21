@@ -108,19 +108,19 @@ function HeaderRoomlist(props: Props) {
         </NavLink>
         <Search />
         <div className="right-headerRoomlist items-center justify-center flex-shrink-0 hidden lg:flex">
-          <div>
+          <div className="translate">
             <NavLink to="/trainghiem">Đón tiếp khách</NavLink>
             <span className="ml-3">
               <GlobalOutlined />
             </span>
           </div>
-          <div className="ml-12">
+          <div className="user-setting ml-12">
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <div className="icon-headerRoomList flex justify-center items-center p-1">
-                    <BarsOutlined />
-                    <AccountCircleIcon className="ml-2" />
+                    <BarsOutlined className="barIcon" />
+                    <AccountCircleIcon className="account-icon ml-2" />
                   </div>
                 </IconButton>
               </Tooltip>
@@ -190,12 +190,12 @@ function Search(props: Props) {
   let { viTri } = useSelectorQuanLyVe();
 
   return (
-    <div className="bg-transparent p-3 flex justify-center items-center">
+    <div className="header-roomlist-search bg-transparent p-3 flex justify-center items-center">
       <div className="mr-5">
         <ComboBox />
       </div>
       <div
-        className="flex flex-col pl-5 mr-5"
+        className="flex flex-col pl-5 mr-5 them-ngay"
         style={{ borderLeft: "1px solid gray" }}
       >
         <TextField
@@ -206,7 +206,7 @@ function Search(props: Props) {
         />
       </div>
       <div
-        className="flex flex-col pl-5 mr-5"
+        className="flex flex-col pl-5 mr-5 them-khach"
         style={{ borderLeft: "1px solid gray" }}
       >
         <TextField

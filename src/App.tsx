@@ -16,6 +16,7 @@ import Register from "./pages/Register/Register";
 import QuanLyNguoiDung from "./pages/Admin/QuanLyNguoiDung/QuanLyNguoiDung";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import QuanLyViTri from "./pages/Admin/QuanLyViTri/QuanLyViTri";
+import QuanLyPhong from "./pages/Admin/QuanLyPhong/QuanLyPhong";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
 
         <AdminTemplate path="/admin/quanlynguoidung" component={QuanLyNguoiDung} />
         <AdminTemplate path="/admin/quanlyvitri" component={QuanLyViTri} />
+        <AdminTemplate path="/admin/quanlyphong" component={QuanLyPhong} />
 
         <HomeTemplate path="/" component={Home} />
       </Switch>

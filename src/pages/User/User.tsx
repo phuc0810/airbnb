@@ -27,11 +27,11 @@ function User(props: Props) {
   return (
     <div>
       <HeaderUser />
-      <div className="max-w-7xl mx-auto mt-10">
+      <div className="container user-body max-w-7xl mx-auto mt-10">
         <div className="flex">
           <div
+          className="user-avatar w-1/3"
             style={{
-              width: "30%",
               border: "2px solid #dddddd",
               borderRadius: "5px",
             }}
@@ -79,7 +79,7 @@ function User(props: Props) {
             </div>
           </div>
           {/* -------------------- */}
-          <div style={{ width: "70%" }}>
+          <div className="w-4/6 user-content">
             <div className="ml-10 flex flex-col">
               <h1 className="font-bold text-2xl">
                 Xin chào tôi là {userLogin?.name}
