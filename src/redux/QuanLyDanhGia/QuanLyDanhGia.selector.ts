@@ -12,7 +12,7 @@ export const useDispatchLayDanhSachDanhGiaTheoPhong = (id: string) => {
   const dispatch = useDispatch<any>();
   const { roomIsRated } = useSelectorQuanLyDanhGia();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0);    
     if (!roomIsRated) {
       dispatch(getLayDanhSachDanhGiaTheoPhong(id));
     }

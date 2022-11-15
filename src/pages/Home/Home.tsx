@@ -25,7 +25,7 @@ function Home(props: Props) {
   let { viTri } = useSelectorQuanLyVe();
 
   return (
-    <div className="body-home container relative">
+    <div className="body-home container relative mx-auto">
       <div className="search bg-white p-3 flex justify-center items-center">
         <div className="mr-5">
           <span className="font-bold pb-1">Đia điểm</span>
@@ -76,7 +76,7 @@ function Home(props: Props) {
           <SearchIcon className="text-white" />
         </button>
       </div>
-      <section className="carousel bg-black pt-8 pb-10">
+      <section className="carousel bg-black pt-8 pb-10" style={{maxWidth:'100%'}}>
         <Carousel />
         <p className="text-white text-center text-3xl pt-7">
           Nhờ có Host, mọi điều đều có thể ♥
