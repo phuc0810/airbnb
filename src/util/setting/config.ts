@@ -12,6 +12,8 @@ export const http = axios.create({
   timeout: 30000,
 });
 
+// update
+
 http.interceptors.request.use(
   (config) => {
     config.headers = {
