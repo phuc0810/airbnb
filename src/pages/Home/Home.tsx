@@ -76,7 +76,10 @@ function Home(props: Props) {
           <SearchIcon className="text-white" />
         </button>
       </div>
-      <section className="carousel bg-black pt-8 pb-10" style={{maxWidth:'100%'}}>
+      <section
+        className="carousel bg-black pt-8 pb-10"
+        style={{ maxWidth: "100%" }}
+      >
         <Carousel />
         <p className="text-white text-center text-3xl pt-7">
           Nhờ có Host, mọi điều đều có thể ♥
